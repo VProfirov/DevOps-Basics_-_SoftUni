@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
 
 
 	# LOCAL ACCESS ONLY OPTION (don't use, but test == DUBT)
-	#config.vm.network "forwarded_port", guest:22, host:61022, host_ip, bridge: "enp59s0-TP-Link-AX10":"127.0.0.1"
+	#config.vm.network "forwarded_port", guest:22, host:61022, host_ip, bridge: "XX"
 	# Private network -  host-only access to the machine #DUBT
 	config.vm.network "private_network", ip:"192.168.122.100"
 
