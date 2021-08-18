@@ -48,6 +48,49 @@ Within each Vagrantfile, you may specify multiple Vagrant.configure blocks. All 
 
 And importantly, you can continue to use the config object as well. The configuration object is loaded and merged before the machine-specific configuration, just like other Vagrantfiles within the Vagrantfile load order.
 
+ - Defining Multiple Machines:
+Multiple machines are defined within the same project Vagrantfile using the config.vm.define method call. This configuration directive is a little funny, because it creates a Vagrant configuration within a configuration. An example shows this best:
+
+```
+Vagrant.configure("2") do |config|
+  config.vm.provision "shell", inline: "echo Hello"
+
+  config.vm.define "web" do |web|
+    web.vm.box = "apache"
+  end
+
+  config.vm.define "db" do |db|
+    db.vm.box = "mysql"
+  end
+end
+```
+
+As you can see, config.vm.define takes a block with another variable. This variable, such as web above, is the exact same as the config variable, except any configuration of the inner variable applies only to the machine being defined. Therefore, any configuration on web will only affect the web machine.
+
+- Specifying a Primary Machine
+
+You can also specify a primary machine. The primary machine will be the default machine used when a specific machine in a multi-machine environment is not specified.
+
+To specify a default machine, just mark it primary when defining it. Only one primary machine may be specified.
+
+```
+config.vm.define "web", primary: true do |web|
+  # ...
+end
+```
+
+- Autostart Machines
+
+By default in a multi-machine environment, vagrant up will start all of the defined machines. The autostart setting allows you to tell Vagrant to not start specific machines. Example:
+
+```
+config.vm.define "web"
+config.vm.define "db"
+config.vm.define "db_follower", autostart: false
+```
+
+When running vagrant up with the settings above, Vagrant will automatically start the "web" and "db" machines, but will not start the "db_follower" machine. You can manually force the "db_follower" machine to start by running vagrant up db_follower.
+
 4. Other important information sections (vagrantup.com):
  - Providers > Configuration:
  Config; Portability; Provider Configuration
