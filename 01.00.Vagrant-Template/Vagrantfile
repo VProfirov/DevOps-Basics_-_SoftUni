@@ -2,24 +2,8 @@
 # vi: set ft=ruby:
 # these are modelines for the ruby language and the vim editor
 
-Vagrant.configure("2") do |config|
-# 'Vagrant' as a class-variable
-# '.confugre' as property taking "2" as version-2 of configuration schema(format)
-# 'do' an object definition of |config| (config.SOMETHING_PROPERTY)
-	config.vm.define "db" do |db|
-	# 'define' a single machine schema logged as "db" and created as object |db| (db.SOMETHING)
-		config.vm.box = "VProfirov_SoftUni/centos-stream-customized"
-		# 'config' as OBJECT
-		# 'vm' as PROPERTY that has a 
-		# 'box' as PROPERTY_OF_FIELD('vm') that takes some value
-		# value that is the $USER/$BUILD address in the vagrant-cloud where the image/box is stored (as default)
-
-		#...
-	end
-
-	#...
-
-	#!NB!: EXECUTION-ORDER: The scopes are like a javascript(with hoisting) and the file is executed at the end with order of outside in: 1st all the most outside definisions are executed, 2nd/then all other more inner ones are executed and so forth
+	#!NB!: EXECUTION-ORDER: The scopes are like a javascript(with hoisting) and the file is executed at the end with order of outside-in: 1st all the most outside definisions are executed, 2nd/then all other more inner ones are executed and so forth.
+		#!NB! Each innner definition can override an pre-existing outer-definition!
 	# def: Hoisting is JavaScript's default behavior of moving all declarations to the top of the current scope (to the top of the current script or the current function).
 		# !clarification!: JavaScript only hoists declarations, not initializations
 		# var x = 5; // Initialize x
@@ -30,4 +14,22 @@ Vagrant.configure("2") do |config|
 
 		# y = 7;    // Assign 7 to y
 		# !clarification-end! with Vagrant everything is an assignment as for example db.vm.box_version = "0.2", if no version is assigned the declaration db.vm.box_version will default to the "latest" available version on the vagrant-cloud
+
+Vagrant.configure("2") do |config|
+# 'Vagrant' as a class-variable
+# '.confugre' as property taking "2" as version-2 of configuration schema(format)
+# 'do' an object definition of |config| (config.SOMETHING_PROPERTY)
+	config.vm.define "db" do |db|
+	# 'define' a single machine schema logged as "db" and created as object |db| (db.SOMETHING)
+		db.vm.box = "VProfirov_SoftUni/centos-stream-customized"
+		# 'config' as OBJECT
+		# 'vm' as PROPERTY that has a 
+		# 'box' as PROPERTY_OF_FIELD('vm') that takes some value
+		# value that is the $USER/$BUILD address in the vagrant-cloud where the image/box is stored (as default)
+		
+		db.vm.box_version = "0.2"
+		#...
+	end
+
+	#...
 end
