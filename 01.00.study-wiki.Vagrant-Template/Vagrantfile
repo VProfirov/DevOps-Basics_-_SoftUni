@@ -15,10 +15,27 @@
 		# y = 7;    // Assign 7 to y
 		# !clarification-end! with Vagrant everything is an assignment as for example db.vm.box_version = "0.2", if no version is assigned the declaration db.vm.box_version will default to the "latest" available version on the vagrant-cloud
 
+	#!NB!: VAGRANT LOOKUP PATH, if you init your project in /home/mitchellh/projects/foo/Vagrantfile looking for THE 1ST VAGRANTFILE IT CAN FIND:
+	# /home/mitchellh/projects/foo/Vagrantfile
+	# /home/mitchellh/projects/Vagrantfile
+	# /home/mitchellh/Vagrantfile
+	# /home/Vagrantfile
+	# /Vagrantfile
+
+	# This feature lets you run vagrant from any directory in your project.
+
+	# You can change the starting directory where Vagrant looks for a Vagrantfile by setting the VAGRANT_CWD environmental variable to some other path
+
 Vagrant.configure("2") do |config|
 # 'Vagrant' as a class-variable
 # '.confugre' as property taking "2" as version-2 of configuration schema(format)
 # 'do' an object definition of |config| (config.SOMETHING_PROPERTY)
+	
+	# Vagramt specific configs in accoradncce with the file format/syntax versioning! 
+	# Example: Vagrant.configure("2") <-- specifies the Vagrantfile
+	# However, Vagrant.require_version ">= 1.3.5", "< 1.4.0" <-- specifies the version of the Vagrant tool itself in range or in direction of a limit/border ">= 1.3.5"
+
+
 	config.vm.define "db" do |db|
 	# 'define' a single machine schema logged as "db" and created as object |db| (db.SOMETHING)
 		db.vm.box = "VProfirov_SoftUni/centos-stream-customized"
@@ -28,6 +45,15 @@ Vagrant.configure("2") do |config|
 		# value that is the $USER/$BUILD address in the vagrant-cloud where the image/box is stored (as default)
 		
 		db.vm.box_version = "0.2"
+
+		# $.vm.provider
+
+		# $.vm.network
+
+		# $.vm.hostname
+
+		# $.vm.sync**
+
 		#...
 	end
 

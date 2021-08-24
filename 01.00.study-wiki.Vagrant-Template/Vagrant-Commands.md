@@ -16,6 +16,7 @@ Vagrant actually loads a series of Vagrantfiles, merging the settings as it goes
    1. Vagrantfile packaged with the box that is to be used for a given machine.
    2. Vagrantfile in your Vagrant home directory (defaults to ~/.vagrant.d)This lets you specify some defaults for your system user.
    3. Vagrantfile from the project directory. This is the Vagrantfile that you will be modifying most of the time.
+   </br>==> within the Vagrantfile accumulated specifications ==></br>
    4. Multi-machine overrides if any.
    5. Provider-specific overrides, if any.
 
@@ -91,7 +92,19 @@ config.vm.define "db_follower", autostart: false
 
 When running vagrant up with the settings above, Vagrant will automatically start the "web" and "db" machines, but will not start the "db_follower" machine. You can manually force the "db_follower" machine to start by running vagrant up db_follower.
 
-4. Other important information sections (vagrantup.com):
+4. Loop Over VM Definitions
+If you want to apply a slightly different configuration to many multi-machine machines, you can use a loop to do this. For example, if you wanted to create three machines:
+
+```bash
+(1..3).each do |i|
+  config.vm.define "node-#{i}" do |node|
+    node.vm.provision "shell",
+      inline: "echo hello from node #{i}"
+  end
+end
+```
+
+5. Other important information sections (vagrantup.com):
  - Providers > Configuration:
  Config; Portability; Provider Configuration
  - Multi-Machine

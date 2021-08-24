@@ -2,6 +2,11 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
+
+	config.vm.boot_timeout = 100; #default(300)
+	config.vm.box_check_update = ture #default(true)
+	#config.vm.box_download_{,,...} checksums for the downloaded update-content
+
 	config.vm.define "db" do |db|
 		db.vm.box = "VProfirov_SoftUni/centos-stream-customized"
 		db.vm.box_version = "0.2"
@@ -12,15 +17,22 @@ Vagrant.configure("2") do |config|
 		end
 		# OR WITH A : provision shell 
 		# db.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
-		# db.vm.synced_folder "vagrant-share/" "/vagrant-share/"
+		db.vm.synced_folder "vagrant/machines/db" "/vagrant/db"
+		db.vm.provision "bootstrap", type: "shell", path: "vagrant/db.sh"
 	end
 	config.vm.define "web" do |web|
 		web.vm.box = "VProfirov_SoftUni/centos-stream-customized"
 		web.vm.box_version = "0.2"
 		web.vm.hostname = "bo"
 		web.vm.network "private_network", ip:"192.168.99.101"
+		# vagrant does port-autocorrection automatically, BUT the :auto_correct option/property must be set always manually
+		web.vm.network "forwarded_port", guest:80, host:8081, auto_correct: true, protocol: "tcp"
+		# For the public side of the app
+		# web.vm.usable_port_range = "8000..8999"
 		web.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
 		end
+		db.vm.synced_folder "vagrant/machines/web" "/vagrant/web"
+		db.vm.provision "bootstrap", type: "shell", path: "vagrant/web.sh"
 	end
 end
