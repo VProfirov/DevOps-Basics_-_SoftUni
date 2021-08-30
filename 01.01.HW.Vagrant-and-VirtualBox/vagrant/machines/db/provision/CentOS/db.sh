@@ -13,4 +13,4 @@ sudo sed -i.bak s/127.0.0.1/0.0.0.0/g /etc/mysql/mariadb.conf.d/50-server.cnf
 systemctl restart mariadb
 
 echo "* Create and load the database ..."
-mysql -u root < /vagrant/db/db_setup.sql
+mysql -u root < /vagrant/db/data-source/db_setup.sql

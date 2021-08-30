@@ -15,16 +15,16 @@
 		# y = 7;    // Assign 7 to y
 		# !clarification-end! with Vagrant everything is an assignment as for example db.vm.box_version = "0.2", if no version is assigned the declaration db.vm.box_version will default to the "latest" available version on the vagrant-cloud
 
-	#!NB!: VAGRANT LOOKUP PATH, if you init your project in /home/mitchellh/projects/foo/Vagrantfile looking for THE 1ST VAGRANTFILE IT CAN FIND:
-	# /home/mitchellh/projects/foo/Vagrantfile
-	# /home/mitchellh/projects/Vagrantfile
-	# /home/mitchellh/Vagrantfile
-	# /home/Vagrantfile
-	# /Vagrantfile
+	#!NB!: VAGRANT LOOKUP PATH, if you init your project in /home/mitchellh/projects/foo/Vagrantfile.rb looking for THE 1ST VAGRANTFILE IT CAN FIND:
+	# /home/mitchellh/projects/foo/Vagrantfile.rb
+	# /home/mitchellh/projects/Vagrantfile.rb
+	# /home/mitchellh/Vagrantfile.rb
+	# /home/Vagrantfile.rb
+	# /Vagrantfile.rb
 
 	# This feature lets you run vagrant from any directory in your project.
 
-	# You can change the starting directory where Vagrant looks for a Vagrantfile by setting the VAGRANT_CWD environmental variable to some other path
+	# You can change the starting directory where Vagrant looks for a Vagrantfile.rb by setting the VAGRANT_CWD environmental variable to some other path
 
 Vagrant.configure("2") do |config|
 # 'Vagrant' as a class-variable
@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
 # 'do' an object definition of |config| (config.SOMETHING_PROPERTY)
 	
 	# Vagramt specific configs in accoradncce with the file format/syntax versioning! 
-	# Example: Vagrant.configure("2") <-- specifies the Vagrantfile
+	# Example: Vagrant.configure("2") <-- specifies the Vagrantfile.rb
 	# However, Vagrant.require_version ">= 1.3.5", "< 1.4.0" <-- specifies the version of the Vagrant tool itself in range or in direction of a limit/border ">= 1.3.5"
 
 
