@@ -38,9 +38,9 @@ Vagrant.configure("2") do |config|
 
 	config.vm.define "db" do |db|
 	# 'define' a single machine schema logged as "db" and created as object |db| (db.SOMETHING)
-		db.vm.box = "VProfirov_SoftUni/centos-stream-customized"
+		db.vm.box = "VProfirov/CentOS-stream-8-minimal-customized"
 		# 'config' as OBJECT
-		# 'vm' as PROPERTY that has a 
+		# 'vm' as PROPERTY that has a
 		# 'box' as PROPERTY_OF_FIELD('vm') that takes some value
 		# value that is the $USER/$BUILD address in the vagrant-cloud where the image/box is stored (as default)
 		
