@@ -15,28 +15,29 @@ Vagrant.configure("2") do |config|
 			vb.name = "CentOS-updater"
 		end
 
-		centOS.vm.box = "VProfirov/CentOS-stream-8-minimal-customized"
+		centOS.vm.box = "VProfirov/centos-stream-customized"
 		centOS.vm.box_version = "0.2"
-		centOS.vm.hostname = "centOS"
+		centOS.vm.hostname = "centOS-updater"
 		centOS.vm.network "private_network", ip:"192.168.99.100"
 
 			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagrant/centOS"
-			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagr		centOS.vm.synced_folder "vagrant/provisioning/", "/vagrant"
+			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagrant/centOS.vm.synced_folder "vagrant/provisioning/", "/vagrant"
 			# centOS.vm.provision "bootstrap", type: "shell", path: "vagrant/machines/centOS/provision/CentOS/centOS.sh"
 
+		## FOR TESTING PURPOSE SKIP PROVISIONING :
+			##centOS.vm.provision "shell", path: "provisioning/centOS.sh"
 
-		##centOS.vm.provision "shell", path: "provisioning/centOS.sh"
-		centOS.vm.provision "shell", privileged:true, inline: <<-EOF
-		dnf update -y;
- 		EOF
-		## shell provisioning:
+			# centOS.vm.provision "shell", privileged:true, inline: <<-EOF
+			# dnf update -y;
+ 			# EOF
+			 
+			## shell provisioning "bug with command execution and omz" - FIX: update with script instead of inline:
+			## update zsh :
+			# zplug update;
+			# omz update;
 
-		## update zsh :
-		# zplug update;
-		# omz update;
-
-		# OR WITH A : provision shell
-		# centOS.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
+			# OR WITH A : provision shell
+			# centOS.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
 
 	end
 end
