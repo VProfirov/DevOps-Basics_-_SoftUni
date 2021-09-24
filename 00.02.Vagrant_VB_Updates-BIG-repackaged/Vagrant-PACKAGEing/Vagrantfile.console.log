@@ -1,0 +1,170 @@
+Connection to 127.0.0.1 closed.
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-re ✔  4379  22:51:44|23.09.21  INSERT  12.78 Dur
+▶vagrant destroy -f
+==> centOS: Forcing shutdown of VM...
+==> centOS: Destroying VM and associated drives...
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-rep ✔  4380  22:51:56|23.09.21  INSERT  5.01 Dur
+▶cd Vagrant-PACKAGEing/
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4381  22:51:57|23.09.21  INSERT
+▶la
+total 4.0K
+drwxr-xr-x. 1 vas vas   32 Sep 23 21:01 .vagrant
+-rw-r--r--. 1 vas vas 1.5K Sep 23 22:25 Vagrantfile
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4382  22:51:59|23.09.21  INSERT
+▶vagrant validate  
+Vagrantfile validated successfully.
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4383  22:52:06|23.09.21  INSERT
+▶vagrant status  
+Current machine states:
+
+without                   not created (virtualbox)
+
+The environment has not yet been created. Run `vagrant up` to
+create the environment. If a machine is not created, only the
+default provider will be shown. So if a provider is not listed,
+then the machine is not created for that environment.
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4384  22:52:10|23.09.21  INSERT
+▶vagrant       
+Vagrant failed to initialize at a very early stage:
+
+There was an error loading a Vagrantfile. The file being loaded
+and the error message are shown below. This is usually caused by
+an invalid or undefined variable.
+
+Path: /home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vagrant-PACKAGEing/Vagrantfile
+Line number: 0
+Message: undefined local variable or method `repackaged'                                                               $(build_right_prompt)$reset_color
+
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/V 1 ↵  4385  22:53:49|23.09.21  INSERT
+▶vagrant validate
+Vagrant failed to initialize at a very early stage:
+
+There was an error loading a Vagrantfile. The file being loaded
+and the error message are shown below. This is usually caused by
+an invalid or undefined variable.
+
+Path: /home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vagrant-PACKAGEing/Vagrantfile
+Line number: 0
+Message: undefined local variable or method `repackaged'
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/V 1 ↵  4386  22:53:56|23.09.21  INSERT
+▶vagrant validate
+Vagrantfile validated successfully.
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4386  22:54:17|23.09.21  INSERT
+▶vagrant status  
+Current machine states:
+
+repackaged                not created (virtualbox)
+
+The environment has not yet been created. Run `vagrant up` to
+create the environment. If a machine is not created, only the
+default provider will be shown. So if a provider is not listed,
+then the machine is not created for that environment.
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4387  22:54:21|23.09.21  INSERT
+▶cat Vagrantfile       
+
+# -*- mode: ruby -*-
+# vi: set ft=ruby:
+
+Vagrant.configure("2") do |config|
+        config.vm.boot_timeout = 100; #default(300)
+        config.vm.box_check_update = true #default(true)
+
+        # config.vm.define "withBase" do |withBase|
+        #       withBase.vm.provider :virtualbox do |vb|
+        #               vb.memory = "2048"
+        #               vb.name = "withBase"
+        #       end
+
+        #       withBase.vm.box = "packaged-WITH-base-option"
+        #       # withBase.vm.box_version = "0.1"
+
+        #       withBase.vm.network :private_network, ip:"192.168.50.101"
+
+        #       withBase.vm.hostname = "withBase"
+        #       # withBase.vm.provision :shell, privileged:true, inline: <<-EOF
+        #       # echo "hi from withBase"
+        #       # EOF
+        # end
+
+        # config.vm.define "without" do |without|
+        #       without.vm.provider :virtualbox do |vb|
+        #               vb.memory = "2048"
+        #               vb.name = "without-Base"
+        #       end
+
+        #       without.vm.box = "packaged-without-base-option"
+        #       # withBase.vm.box_version = "0.1"
+
+        #       without.vm.network :private_network, ip:"192.168.50.102"
+
+        #       without.vm.hostname = "WITHOUTbase"
+        #       # without.vm.provision :shell, privileged:true, inline: <<-EOF
+        #       # echo "hi from WITHOUT-BASE"
+        #       # EOF
+        # end
+
+        config.vm.define "repackaged" do |repackaged|
+                repackaged.vm.provider :virtualbox do |vb|
+                        vb.memory = "2048"
+                        vb.name = "repackaged-box"
+                end
+
+                repackaged.vm.box = "packaged-with-REPACAKGE-option"
+                # withBase.vm.box_version = "0.1"
+
+                repackaged.vm.network :private_network, ip:"192.168.50.103"
+
+                repackaged.vm.hostname = "repackaged"
+                # without.vm.provision :shell, privileged:true, inline: <<-EOF
+                # echo "hi from WITHOUT-BASE"
+                # EOF
+        end
+end%                                                                                                                                         
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vag ✔  4388  22:54:24|23.09.21  INSERT
+▶
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repa SIGINT(2) ↵  4388  22:54:28|23.09.21  INSERT
+▶vagrant up    
+Bringing machine 'repackaged' up with 'virtualbox' provider...
+==> repackaged: Importing base box 'packaged-with-REPACAKGE-option'...
+==> repackaged: Matching MAC address for NAT networking...
+==> repackaged: Setting the name of the VM: repackaged-box
+==> repackaged: Clearing any previously set network interfaces...
+==> repackaged: Preparing network interfaces based on configuration...
+    repackaged: Adapter 1: nat
+    repackaged: Adapter 2: hostonly
+==> repackaged: Forwarding ports...
+    repackaged: 22 (guest) => 2222 (host) (adapter 1)
+==> repackaged: Running 'pre-boot' VM customizations...
+==> repackaged: Booting VM...
+==> repackaged: Waiting for machine to boot. This may take a few minutes...
+    repackaged: SSH address: 127.0.0.1:2222
+    repackaged: SSH username: vagrant
+    repackaged: SSH auth method: private key
+==> repackaged: Machine booted and ready!
+==> repackaged: Checking for guest additions in VM...
+    repackaged: No guest additions were detected on the base box for this VM! Guest
+    repackaged: additions are required for forwarded ports, shared folders, host only
+    repackaged: networking, and more. If SSH fails on this machine, please install
+    repackaged: the guest additions and repackage the box to continue.
+    repackaged: 
+    repackaged: This is not an error message; everything may continue to work properly,
+    repackaged: in which case you may ignore this message.
+==> repackaged: Setting hostname...
+==> repackaged: Configuring and enabling network interfaces...
+==> repackaged: Mounting shared folders...
+    repackaged: /vagrant => /home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG-repackaged/Vagrant-PACKAGEing
+Vagrant was unable to mount VirtualBox shared folders. This is usually
+because the filesystem "vboxsf" is not available. This filesystem is
+made available via the VirtualBox Guest Additions and kernel module.
+Please verify that these guest additions are properly installed in the
+guest. This is not a bug in Vagrant and is usually caused by a faulty
+Vagrant box. For context, the command attempted was:
+
+mount -t vboxsf -o uid=1000,gid=1000,_netdev vagrant /vagrant
+
+The error output from the command was:
+
+/sbin/mount.vboxsf: mounting failed with the error: No such device
+
+ vas@dell-nb  ~/Documents/GitHub/DevOps-Basics_-_SoftUni/00.02.Vagrant_VB_Updates-BIG- 1 ↵  4389  22:56:50|23.09.21  INSERT  02:18 Dur
+▶
