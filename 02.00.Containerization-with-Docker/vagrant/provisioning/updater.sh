@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-
-zplug update
-omz update
+echo "Hello from Guest!"
+#zplug update
+#omz update
