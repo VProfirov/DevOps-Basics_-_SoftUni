@@ -11,38 +11,32 @@ Vagrant.configure("2") do |config|
 	config.vm.define "centOS" do |centOS|
 		centOS.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
+			vb.cpus = "2"
 			## virtualbox-machine name
 			vb.name = "CentOS-updater"
 		end
 
-		centOS.vm.box = "VProfirov/CentOS-Stream-08-minimal-customized"
-		centOS.vm.box_version = "1.0"
+			# centOS.ssh.username = "vagrant"
+			# centOS.ssh.password = "vagrant"
+			# centOS.ssh.insert_key = false
+
+		config.vm.box = "VProfirov/CentOS-Stream-08-minimal-customized"
+  		config.vm.box_version = "1.0"
+
 		centOS.vm.hostname = "centOS-updater"
 		centOS.vm.network "private_network", ip:"192.168.99.100"
 
-			# centOS.vm.synced_folder "vagrant/provisioning/", "/vagrant"
-			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagrant/centOS"
-			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagrant/
-
 		centOS.vm.synced_folder "vagrant/", "/vagrant"
 
-		centOS.vm.provision "shell", privileged:true, inline: <<-EOF
+			# centOS.vm.synced_folder "vagrant/provisioning/", "/vagrant"
+			# centOS.vm.synced_folder "vagrant/machines/centOS/data-source", "/vagrant/
+
+		centOS.vm.provision "initial-update", type:"shell", privileged:true, inline: <<-EOF
 		dnf update -y;
 		EOF
 
 		## FOR TESTING PURPOSE SKIP PROVISIONING :
-			## shell provisioning "bug with command execution and omz" - FIX: update with script instead of inline:
-			## update zsh :
-			# centOS.vm.provision "initial-update", type: "shell", privileged:true, inline: <<-EOF
-			# dnf update -y
-			# # DOES NOT recognize zplug or omz as commands up until inside interactive shell
-			# zplug update;
-			# omz update;
-			# EOF
-		##
-			##centOS.vm.provision "shell", path: "provisioning/centOS.sh"
-
-			# centOS.vm.provision "bootstrap", type: "shell", path: "vagrant/machines/centOS/provision/CentOS/centOS.sh"
+			# centOS.vm.provision "bootstrap", type:"shell", path:"provisioning/centOS.sh"
 
 			# OR WITH A : provision shell
 			# centOS.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
