@@ -6,8 +6,6 @@ Vagrant.configure("2") do |config|
 	config.vm.boot_timeout = 100; #default(300)
 	config.vm.box_check_update = true #default(true)
 
-	#config.vm.box_download_{,,...} checksums for the downloaded update-content
-
 	config.vm.define "ubuntu-updater" do |ubuntu|
 		ubuntu.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
@@ -16,15 +14,8 @@ Vagrant.configure("2") do |config|
 			vb.name = "ubuntu-updater"
 		end
 
-			# centOS.ssh.username = "vagrant"
-			# centOS.ssh.password = "vagrant"
-			# centOS.ssh.insert_key = false
-
-		# centOS.vm.box = "VProfirov/CentOS-Stream-08-customized"
-		# centOS.vm.box_version = "1.1"
-
-		ubuntu.vm.box = "Ubuntu-customized"
-		ubuntu.vm.box_version = "0"
+		ubuntu.vm.box = = "VProfirov/Ubuntu-customized"
+		ubuntu.vm.box_version = "1.2"
 
 		ubuntu.vm.hostname = "ubuntu-updater"
 		ubuntu.vm.network "private_network", ip:"192.168.99.100"
@@ -32,14 +23,14 @@ Vagrant.configure("2") do |config|
 		ubuntu.vm.synced_folder "vagrant/", "/vagrant"
 
 		ubuntu.vm.provision "initial-update", type:"shell", privileged:true, inline: <<-EOF
-		dnf update --exclude=kernel* -y;
+		apt update -y
 		EOF
 
 		## FOR TESTING PURPOSE SKIP PROVISIONING :
-			# centOS.vm.provision "bootstrap", type:"shell", path:"provisioning/centOS.sh"
+			# ubuntu.vm.provision "bootstrap", type:"shell", path:"provisioning/ubuntu-provisioning.sh"
 
 			# OR WITH A : provision shell
-			# centOS.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
+			# ubuntu.vm.provision "file" source: "./.vagrant-provision.cfg", destination:"/.vagrant-provision.cfg"
 
 	end
 end

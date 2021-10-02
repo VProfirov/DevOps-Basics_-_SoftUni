@@ -18,4 +18,4 @@ ls -lahtF /var/www/html
 
 echo "* Data-source files are imported in to the machine by the Vagrant dir sharing (/vagrant/web)"
 echo "* Copy web site files to /var/ww/html/ ..."
-cp /vagrant/web/* /var/www/html
+cp /vagrant/* /var/www/html
