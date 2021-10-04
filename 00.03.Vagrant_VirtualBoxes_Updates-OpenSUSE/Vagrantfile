@@ -10,7 +10,6 @@ Vagrant.configure("2") do |config|
 		openSUSE.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
 			vb.cpus = "2"
-			## virtualbox-machine name
 			vb.name = "openSUSE-updater"
 		end
 
@@ -23,8 +22,19 @@ Vagrant.configure("2") do |config|
 		openSUSE.vm.synced_folder "vagrant/", "/vagrant"
 
 		openSUSE.vm.provision "initial-update", type:"shell", privileged:true, inline: <<-EOF
-		zypper update -y
+		zypper update
 		EOF
+
+		## OPENSUSE15.3 UPDATE FIX:
+
+		openSUSE.vm.provision "update-fix-opensuse15.3", type:"shell", privileged:true, inline: <<-EOF
+		zypper addrepo https://download.opensuse.org/repositories/home:arachnos/openSUSE_Leap_15.3/home:arachnos.repo
+		zypper refresh
+		zypper install python-iniconfig
+		zypper update
+		EOF
+
+
 
 		## FOR TESTING PURPOSE SKIP PROVISIONING :
 			# openSUSE.vm.provision "bootstrap", type:"shell", path:"provisioning/OpenSUSE-provisioning.sh"
