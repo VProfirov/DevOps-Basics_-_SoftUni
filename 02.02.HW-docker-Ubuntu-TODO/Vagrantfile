@@ -4,7 +4,7 @@
 Vagrant.configure("2") do |config|
 
 	config.vm.boot_timeout = 100; #default(300)
-	config.vm.box_check_update = false; #default(true)
+	config.vm.box_check_update = true; #default(true)
 
 	config.vm.define "ubuntu-docker" do |docker|
 		docker.vm.provider "virtualbox" do |vb|
@@ -13,8 +13,8 @@ Vagrant.configure("2") do |config|
 			vb.name = "study-docker-Ubuntu"
 		end
 
-		docker.vm.box = "Ubuntu-customized"
-		docker.vm.box_version = "0"
+		docker.vm.box = "VProfirov/Ubuntu-customized"
+		docker.vm.box_version = "1.4"
 		docker.vm.hostname = "docker-host"
 		docker.vm.network "private_network", ip:"192.168.120.22"
 		docker.vm.synced_folder "vagrant/", "/vagrant"

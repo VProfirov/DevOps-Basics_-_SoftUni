@@ -6,7 +6,7 @@ echo "192.168.99.101 web.dob.lab web" | tee -a /etc/hosts
 
 echo "* Install Software..."
 #dnf update -x kernel\* -y
- zypper update -y
+zypper update
 zypper install mariadb-server mariadb -y
 
 echo "* Adjust MariaDB connectivity ..."
@@ -20,6 +20,7 @@ systemctl status mariadb
 # sudo myql_secure_installation
 
 echo "* Firewall opening for mariadb port 3306"
+# TODO: CHECK if there is firewall-cmd
 sudo firewall-cmd --add-port=3306/tcp --permanent
 sudo firewall-cmd --reload
 

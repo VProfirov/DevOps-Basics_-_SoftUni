@@ -6,7 +6,7 @@ echo "192.168.99.101 web.dob.lab web" | tee -a /etc/hosts
 
 echo "* Install Software ..."
 #dnf update -x kernel\* -y
-zypper update -y
+zypper update
 zypper install httpd php php-mysqlnd git -y
 
 echo "* Starting the httpd service - Apache Server"
@@ -15,10 +15,12 @@ systemctl start httpd
 systemctl status httpd
 
 echo "* Firewall opening for httpd.service/Apache2"
+# TODO: CHECK if there is firewall-cmd and needs add
 sudo firewall-cmd --add-service=http --permanent
 sudo firewall-cmd --reload
 
 echo "* SeLinux configuration for httpd"
+# TODO: check if there is SeLinux on OpenSUSE
 sudo setsebool -P httpd_can_network_connect=1
 # If SeLinux blocks some functionality change mode in --> /etc/sysconfig/selinux
 
