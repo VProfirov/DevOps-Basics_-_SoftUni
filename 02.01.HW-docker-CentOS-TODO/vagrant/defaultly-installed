@@ -1,0 +1,4 @@
+#CONTAINERIZATION
+uninstalling: podman runc *buildah*(not-defaultly-installed)* -> reason: conflicts with docker
+
+
