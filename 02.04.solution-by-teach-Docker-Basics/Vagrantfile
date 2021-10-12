@@ -1,0 +1,36 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.boot_timeout = 100; #default(300)
+	config.vm.box_check_update = true; #default(true)
+
+	#config.vm.box_download_{,,...} checksums for the downloaded update-content
+
+	config.vm.define "docker-centOS" do |docker|
+		docker.vm.provider "virtualbox" do |vb|
+			vb.memory = "2048"
+			vb.cpus = "2"
+			vb.name = "shekeriev-study-docker-CentOS"
+		end
+
+		docker.vm.box = "shekeriev/centos-8-minimal"
+		docker.vm.box_version = "0.3"
+
+		docker.vm.hostname = "docker-host-CentOS"
+		docker.vm.network "private_network", ip:"193.168.120.10"
+		docker.vm.network :forwarded_port, guest: 8080, host:8080, auto_correct: true
+
+		docker.vm.synced_folder "vagrant/", "/vagrant"
+
+		# docker.vm.provision "initialize-docker", type:"shell", privileged: true, inline:<<-EOF
+		# dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+		# dnf install docker-ce docker-ce-cli containerd.io --allowerasing -y
+		# ## dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.13-3.1.el7.x86_64.rpm
+
+		# systemctl start docker
+		# systemctl status docker
+		# EOF
+	end
+end
