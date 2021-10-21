@@ -5,7 +5,7 @@ echo "192.168.99.100 docker.dob.lab docker" | tee -a /etc/hosts
 
 # APPLICATION PROVISION PHASE
 echo " ** Clean pre-existing docker packages"
-        echo " --> check: pre-existance"
+        echo " --> check: pre-existing"
         rpm -qa | grep -iE "podman|buildah|runc"
 echo " --> action: clean-up"
 dnf remove -y podman buildah runc
@@ -45,6 +45,7 @@ firewall-cmd --add-port=8080/tcp --permanent
 
 echo " ** Adding the $USER (vagrant) to the docker Group"
 getent group docker;
-# usermod -aG docker $USER;
+# To Work hace to add the $USER(vagrant) to sudoers.d in advance 
+## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
