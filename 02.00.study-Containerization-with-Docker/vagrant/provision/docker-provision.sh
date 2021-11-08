@@ -48,3 +48,9 @@ getent group docker;
 # usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
+
+
+echo "** Additional packages installed for easier work with docker:"
+echo "--> lazydocker - cli-gui for basic interaction with docker"
+dnf copr enable -y atim/lazydocker
+dnf install -y lazydocker
