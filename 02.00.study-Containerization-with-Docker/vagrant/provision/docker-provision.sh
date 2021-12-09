@@ -54,3 +54,7 @@ echo "** Additional packages installed for easier work with docker:"
 echo "--> lazydocker - cli-gui for basic interaction with docker"
 dnf copr enable -y atim/lazydocker
 dnf install -y lazydocker
+
+# SYSTEM UPDATE
+echo "** Updating the system"
+dnf update -y -x kernel\*

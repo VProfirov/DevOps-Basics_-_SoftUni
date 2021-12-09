@@ -30,3 +30,13 @@ getent group docker;
 ## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
+
+
+## Adding Extra Tools
+echo " ** Adding extra toools: lazydocker"
+zypper install -y lazydocker
+
+# # UPDATING PART
+echo " ** Updating the system"
+zypper refresh
+zypper update -y
