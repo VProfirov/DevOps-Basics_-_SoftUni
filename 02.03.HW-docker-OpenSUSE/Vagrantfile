@@ -14,12 +14,12 @@ Vagrant.configure("2") do |config|
 		end
 
 		## Online repo
-		docker.vm.box = "VProfirov/OpenSUSE-customized"
-		docker.vm.box_version = "1.4"
+		# docker.vm.box = "VProfirov/OpenSUSE-customized"
+		# docker.vm.box_version = "1.4"
 
 		## Local repo testing
-		# docker.vm.box = "OpenSUSE-customized-1.4.1"
-		# docker.vm.box_version = "0"
+		docker.vm.box = "OpenSUSE-customized-1.4.1"
+		docker.vm.box_version = "0"
 
 		docker.vm.hostname = "docker-host-OpenSUSE"
 

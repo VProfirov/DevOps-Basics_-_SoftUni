@@ -5,8 +5,8 @@ echo " ** Add hosts..."
 echo "192.168.99.100 docker.dob.lab docker" | tee -a /etc/hosts
 
 ## CLEANUP PHASE - cleanup runc - the pre-installed conflicts with docker. Also RHEL's podman also, but there is none in UBUNTU
-echo "** Trying to remove pre-existing docker packages"
-zypper remove -y docker docker-engine docker.io containerd runc
+# echo "** Trying to remove pre-existing docker packages"
+# zypper remove -y docker docker-engine docker.io containerd runc
 
 # APPLICATION PROVISION PHASE
 echo " ** Installing docker packages"
@@ -33,10 +33,10 @@ getent group docker;
 
 
 ## Adding Extra Tools
-echo " ** Adding extra toools: lazydocker"
-zypper install -y lazydocker
+# echo " ** Adding extra toools: lazydocker"
+# zypper install -y lazydocker
 
 # # UPDATING PART
-echo " ** Updating the system"
-zypper refresh
-zypper update -y
+# echo " ** Updating the system"
+# zypper refresh
+# zypper update -y
