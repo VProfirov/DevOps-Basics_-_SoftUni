@@ -1,0 +1,6 @@
+# Just run an nginx server: the most basics
+FROM  ubuntu AS nginx_v1
+LABEL maintainer="starter@stage01"
+RUN apt update -y && apt install -y nginx && apt clean
+ENTRYPOINT ["/usr/sbin/nginx","-g","daemon off;"]
+EXPOSE 80 443

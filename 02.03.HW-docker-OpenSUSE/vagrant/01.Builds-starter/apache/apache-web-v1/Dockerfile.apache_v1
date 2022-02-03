@@ -1,0 +1,7 @@
+FROM ubuntu AS apache_v1
+LABEL maintainer="starter@stage01"
+ENV TZ="Europe/Sofia"
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt update -y && apt install -y apache2 && apt clean
+ENTRYPOINT ["/usr/sbin/apache2ctl","-D","FOREGROUND"]
+EXPOSE 80 443

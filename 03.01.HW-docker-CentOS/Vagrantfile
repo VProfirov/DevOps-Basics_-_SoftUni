@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.boot_timeout = 50; #default(300)
+	config.vm.box_check_update = true; #default(true)
+
+	#config.vm.box_download_{,,...} checksums for the downloaded update-content
+
+	config.vm.define "docker-centOS" do |docker|
+		docker.vm.provider "virtualbox" do |vb|
+			vb.memory = "2048"
+			vb.cpus = "2"
+			vb.name = "study-docker-CentOS"
+		end
+
+		## ONLINE REPO
+		docker.vm.box = "VProfirov/CentOS-Stream-08-customized"
+		docker.vm.box_version = "1.4"
+		## LOCAL REPO:LATEST
+		# docker.vm.box = "CentOS-Stream-08-customized-1.4.1"
+		# docker.vm.box_version = "0"
+
+		docker.vm.hostname = "docker-host-CentOS"
+
+		## the idea is to override the default Vagrant port-substitution during re/init (vagrant up)
+		# current ports on the vm : host: 2201, guest:22
+
+		docker.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2310, auto_correct: true
+		# docker.vm.network "forwarded_port", id: "ssh", guest: 22, host: 2100, auto_correct: true
+
+		docker.vm.network "private_network", ip:"192.168.99.100"
+		# docker.vm.network :private_network, ip:"192.168.99.100"
+
+		docker.vm.network :forwarded_port, guest: 8080, host:8310, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8081, host:8311, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8082, host:8312, auto_correct: true
+		# CONTAINER's Port Exposing conundrum
+		docker.vm.network :forwarded_port, guest: 8083, host:8313, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8084, host:8314, auto_correct: true
+
+		docker.vm.synced_folder "vagrant/", "/vagrant"
+
+		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-CentOS.sh"
+	end
+end

@@ -10,7 +10,7 @@ Vagrant.configure("2") do |config|
 		docker.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
 			vb.cpus = "2"
-			vb.name = "study-docker-OpenSUSE"
+			vb.name = "02.03.study-docker-OpenSUSE"
 		end
 
 		## Online repo
@@ -23,15 +23,16 @@ Vagrant.configure("2") do |config|
 
 		docker.vm.hostname = "docker-host-OpenSUSE"
 
-		docker.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2103, auto_correct: true
+		docker.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2230, auto_correct: true
 
 		docker.vm.network "private_network", ip:"192.168.99.103"
-		docker.vm.network :forwarded_port, guest: 8080, host:8030, auto_correct: true
-		docker.vm.network :forwarded_port, guest: 8081, host:8031, auto_correct: true
-		docker.vm.network :forwarded_port, guest: 8082, host:8032, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8080, host:8230, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8081, host:8231, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8082, host:8232, auto_correct: true
 		# CONTAINER's Port Exposing conundrum
-		docker.vm.network :forwarded_port, guest: 8083, host:8033, auto_correct: true
-		docker.vm.network :forwarded_port, guest: 8084, host:8034, auto_correct: true
+                #
+		docker.vm.network :forwarded_port, guest: 8083, host:8233, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8084, host:8234, auto_correct: true
 
 		docker.vm.synced_folder "vagrant/", "/vagrant"
 

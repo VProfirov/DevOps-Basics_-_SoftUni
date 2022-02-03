@@ -9,6 +9,8 @@ echo " ** Clean pre-existing docker packages"
         rpm -qa | grep -iE "podman|buildah|runc"
 echo " --> action: clean-up"
 dnf remove -y podman buildah runc
+# docker uses: runc and will install it's own with the correct version number
+# podman uses the "buildah" libs to build the images which somehow conflicts with the docker installation too (need-to-check)
 # sudo dnf remove podman runc
 
 echo " ** Enable docker repo"
@@ -49,3 +51,22 @@ getent group docker;
 ## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
+
+### GITHUB rpm build installation
+# echo " ** Installing lazydocker"
+# mkdir -p /vagrant/Downloads && cd /vagrant/Downloads
+# wget https://harbottle.gitlab.io/harbottle-main/7/x86_64/harbottle-main-release.rpm
+
+# dnf install -y /vagrant/Downoads/harbottle-main-release.rpm
+# dnf install -y lazydocker
+### END GITHUB rpm build installation
+
+echo "** Additional packages installed for easier work with docker:"
+echo "--> lazydocker - cli-gui for basic interaction with docker"
+dnf copr enable -y atim/lazydocker
+dnf install -y lazydocker
+
+# SYSTEM UPDATE
+echo "** Updating the system"
+dnf update -y -x kernel\*
+

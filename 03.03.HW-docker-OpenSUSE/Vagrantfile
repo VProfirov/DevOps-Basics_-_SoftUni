@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.boot_timeout = 100; #default(300)
+	config.vm.box_check_update = true; #default(true)
+
+	config.vm.define "openSUSE-docker" do |docker|
+		docker.vm.provider "virtualbox" do |vb|
+			vb.memory = "2048"
+			vb.cpus = "2"
+			vb.name = "03.03.study-docker-OpenSUSE"
+		end
+
+		## Online repo
+		# docker.vm.box = "VProfirov/OpenSUSE-customized"
+		# docker.vm.box_version = "1.4"
+
+		# ## Local repo testing
+		docker.vm.box = "OpenSUSE-customized-1.4.1"
+		docker.vm.box_version = "0"
+
+		docker.vm.hostname = "docker-host-OpenSUSE"
+
+		docker.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2330, auto_correct: true
+
+		docker.vm.network "private_network", ip:"192.168.99.100"
+		docker.vm.network "private_network", ip:"192.168.99.101"
+		docker.vm.network "private_network", ip:"192.168.99.102"
+		docker.vm.network "private_network", ip:"192.168.99.103"
+		docker.vm.network :forwarded_port, guest: 8080, host:8330, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8081, host:8331, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8082, host:8332, auto_correct: true
+		# CONTAINER's Port Exposing conundrum
+                #
+		docker.vm.network :forwarded_port, guest: 8083, host:8333, auto_correct: true
+		docker.vm.network :forwarded_port, guest: 8084, host:8334, auto_correct: true
+
+		docker.vm.synced_folder "vagrant/", "/vagrant"
+
+		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-OpenSUSE.sh"
+	end
+end
