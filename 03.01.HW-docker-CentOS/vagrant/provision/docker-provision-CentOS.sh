@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.100 docker-host-0.dob.lab docker0" | tee -a /etc/hosts
-echo "192.168.99.101 docker-host-1.dob.lab docker1" | tee -a /etc/hosts
-echo "192.168.99.102 docker-host-2.dob.lab docker2" | tee -a /etc/hosts
-echo "192.168.99.103 docker-host-3.dob.lab docker3" | tee -a /etc/hosts
+echo "192.168.99.100 docker.dob.lab.0 docker0" | tee -a /etc/hosts
+echo "192.168.99.101 docker.dob.lab.1 docker1" | tee -a /etc/hosts
+echo "192.168.99.102 docker.dob.lab.2 docker2" | tee -a /etc/hosts
+echo "192.168.99.103 docker.dob.lab.3 docker3" | tee -a /etc/hosts
 
 # APPLICATION PROVISION PHASE
 echo " ** Clean pre-existing docker packages"
@@ -80,6 +80,5 @@ echo "** Adding additional repos for development purposes (rpmfusion(free-nonfre
 dnf install --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm -y
 
 dnf install --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm -y
-
 
 dnf install --nogpgcheck http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.8-1.of.el7.noarch.rpm -y
