@@ -39,9 +39,7 @@ getent group docker;
 # echo " ** Adding extra toools: lazydocker"
 # zypper install -y lazydocker
 ## hacking it ->
-# cp /vagrant/provision/lazydocker /usr/bin
-## artifact
-cp ../00.00.Artifacts/lazydocker /usr/bin
+cp /vagrant/provision/lazydocker /usr/bin
 
 # # UPDATING PART
 # echo " ** Updating the system"

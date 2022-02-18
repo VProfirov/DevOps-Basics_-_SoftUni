@@ -6,10 +6,10 @@ Vagrant.configure("2") do |config|
 	config.vm.boot_timeout = 100; #default(300)
 	config.vm.box_check_update = true; #default(true)
 
-	config.vm.define "openSUSE-docker" do |docker|
+	config.vm.define "openSUSE-docker-100" do |docker|
 		docker.vm.provider "virtualbox" do |vb|
-			vb.memory = "2048"
-			vb.cpus = "2"
+			vb.memory = "1024"
+			vb.cpus = "1"
 			vb.name = "03.03.study-docker-OpenSUSE-ip-100"
 		end
 
@@ -33,10 +33,10 @@ Vagrant.configure("2") do |config|
 		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-OpenSUSE.sh"
 	end
 
-	config.vm.define "openSUSE-docker" do |docker|
+	config.vm.define "openSUSE-docker-101" do |docker|
 		docker.vm.provider "virtualbox" do |vb|
-			vb.memory = "2048"
-			vb.cpus = "2"
+			vb.memory = "1024"
+			vb.cpus = "1"
 			vb.name = "03.03.study-docker-OpenSUSE-ip-101"
 		end
 
@@ -60,10 +60,10 @@ Vagrant.configure("2") do |config|
 		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-OpenSUSE.sh"
 	end
 
-	config.vm.define "openSUSE-docker" do |docker|
+	config.vm.define "openSUSE-docker-102" do |docker|
 		docker.vm.provider "virtualbox" do |vb|
-			vb.memory = "2048"
-			vb.cpus = "2"
+			vb.memory = "1024"
+			vb.cpus = "1"
 			vb.name = "03.03.study-docker-OpenSUSE-ip-102"
 		end
 
