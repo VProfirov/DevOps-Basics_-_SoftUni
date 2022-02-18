@@ -1,7 +1,5 @@
 
 *.box
 
-02.03.HW-docker-OpenSUSE/vagrant/os-re-build_update
-03.01.HW-docker-CentOS/vagrant/docker-machine
-03.03.HW-docker-OpenSUSE/vagrant/docker-machine
+00.00.Artifacts
 03.03.HW-docker-OpenSUSE/vagrant/provision/lazydocker
