@@ -2,10 +2,10 @@
 
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.300 docker-host-0.dob.lab docker0" | tee -a /etc/hosts
-echo "192.168.99.301 docker-host-1.dob.lab docker1" | tee -a /etc/hosts
-echo "192.168.99.302 docker-host-2.dob.lab docker2" | tee -a /etc/hosts
-echo "192.168.99.303 docker-host-3.dob.lab docker3" | tee -a /etc/hosts
+echo "192.168.99.100 docker-host-0.dob.lab docker0" | tee -a /etc/hosts
+echo "192.168.99.101 docker-host-1.dob.lab docker1" | tee -a /etc/hosts
+echo "192.168.99.102 docker-host-2.dob.lab docker2" | tee -a /etc/hosts
+echo "192.168.99.103 docker-host-3.dob.lab docker3" | tee -a /etc/hosts
 
 ## CLEANUP PHASE - cleanup runc - the pre-installed conflicts with docker. Also RHEL's podman also, but there is none in UBUNTU
 # echo "** Trying to remove pre-existing docker packages"
@@ -39,7 +39,9 @@ getent group docker;
 # echo " ** Adding extra toools: lazydocker"
 # zypper install -y lazydocker
 ## hacking it ->
-cp /vagrant/provision/lazydocker /usr/bin
+# cp /vagrant/provision/lazydocker /usr/bin
+## artifact
+cp ../00.00.Artifacts/lazydocker /usr/bin
 
 # # UPDATING PART
 # echo " ** Updating the system"

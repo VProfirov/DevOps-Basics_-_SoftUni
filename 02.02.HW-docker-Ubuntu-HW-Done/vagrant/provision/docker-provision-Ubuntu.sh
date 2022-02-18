@@ -2,7 +2,7 @@
 
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.100 docker.dob.lab docker" | tee -a /etc/hosts
+echo "192.168.99.102 docker.dob.lab docker" | tee -a /etc/hosts
 
 ## CLEANUP PHASE - cleanup runc - the pre-installed conflicts with docker. Also RHEL's podman also, but there is none in UBUNTU
 echo "** Trying to remove pre-existing docker packages"

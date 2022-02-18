@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.100 docker.dob.lab docker" | tee -a /etc/hosts
+echo "192.168.99.101 docker.dob.lab docker" | tee -a /etc/hosts
 
 # APPLICATION PROVISION PHASE
 echo " ** Clean pre-existing docker packages"
@@ -59,6 +59,7 @@ getent group docker;
 
 # dnf install -y /vagrant/Downoads/harbottle-main-release.rpm
 # dnf install -y lazydocker
+# rm /vagrant/Downloads/harbottle-main-release.rpm
 ### END GITHUB rpm build installation
 
 echo "** Additional packages installed for easier work with docker:"
