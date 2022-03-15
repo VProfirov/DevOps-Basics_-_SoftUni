@@ -17,7 +17,7 @@ docker image build -t img-php /home/docker/M3-2a/php/
 echo "--> Network creation (dob-network)"
 docker network create --driver bridge --subnet 10.0.1.0/24 --label dob-network dob-network
 
-echo "--> Creating con MySQL"
+echo "--> Creating con MySQL with network-alias addressed by the index.php"
 docker container run -d --network dob-network --network-alias dob-mysql -e MYSQL_ROOT_PASSWORD=12345 --name con-mysql img-mysql
 
 echo "--> Creating con PHP"
