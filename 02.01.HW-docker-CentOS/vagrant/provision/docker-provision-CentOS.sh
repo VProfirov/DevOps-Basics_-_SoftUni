@@ -42,8 +42,25 @@ for action in {status,enable,start,status}; do
         # TODO: maybe more adequate checks
 done;
 
-echo " ** Firewall - open port 8080 ..."
-firewall-cmd --add-port=8080/tcp --permanent
+echo "--> Security Administration:"
+
+##TODO: build logic for checking the zones:
+##see if there is "docker" zone in
+#firewall-cmd --get-zones
+##see if interface "docker0" is in docker zone and if the docker zone is "active"
+#firewall-cmd --get-active-zones
+##if there is NO such zone (docker with docker0 interface) you can just add the docker's default interface (docker0) to the "trusted" zone
+# echo " ** Adding docker's interface(docker0) to the network-firewall(firewall-cmd) in the \"trusted\" zone if not in a zone (docker)"
+# firewall-cmd --add-interface=docker0 --zone trusted --permanent
+
+echo " ** Firewall - enable port 8080 on the public network-interface"
+firewall-cmd --add-port=8080/tcp --zone public --permanent
+
+echo " ** Show current open to the network ports and network interfaces"
+echo "--> public network-interface security"
+firewall-cmd --zone public --list-all
+echo "--> docker network-interface security"
+firewall-cmd --zone docker --list-all
 
 echo " ** Adding the $USER (vagrant) to the docker Group"
 getent group docker;

@@ -20,9 +20,9 @@ systemctl status mariadb
 # sudo myql_secure_installation
 
 echo "* Firewall opening for mariadb port 3306"
-# TODO: CHECK if there is firewall-cmd
-sudo firewall-cmd --add-port=3306/tcp --permanent
-sudo firewall-cmd --reload
+# TODO: CHECK if there is firewall-cmd no "sudo" needed -> the provisioning script runs with elevated privileges (as run by sudo)
+firewall-cmd --add-port=3306/tcp --permanent
+firewall-cmd --reload
 
 echo "* Create and load the database ..."
 ## mysql -u root < /vagrant/db/data-source/db_setup.sql

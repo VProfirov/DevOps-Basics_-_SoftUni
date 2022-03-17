@@ -26,7 +26,7 @@ done;
 
 echo " ** Adding the $USER (vagrant) to the docker Group"
 getent group docker;
-# To Work hace to add the $USER(vagrant) to sudoers.d in advance
+# Needs the $USER(vagrant) added to sudoers.d in advance (because the provisioning is ran with elevated privileges (as sudo))
 ## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
