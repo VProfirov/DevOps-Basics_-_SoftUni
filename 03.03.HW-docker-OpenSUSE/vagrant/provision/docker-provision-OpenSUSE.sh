@@ -2,10 +2,10 @@
 
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.130 docker-host-0.dob.lab docker0" | tee -a /etc/hosts
-echo "192.168.99.131 docker-host-1.dob.lab docker1" | tee -a /etc/hosts
-echo "192.168.99.132 docker-host-2.dob.lab docker2" | tee -a /etc/hosts
-echo "192.168.99.133 docker-host-3.dob.lab docker3" | tee -a /etc/hosts
+echo "192.168.99.130 docker.dob.lab.30 docker30" | tee -a /etc/hosts
+echo "192.168.99.131 docker.dob.lab.31 docker31" | tee -a /etc/hosts
+echo "192.168.99.132 docker.dob.lab.31 docker32" | tee -a /etc/hosts
+echo "192.168.99.133 docker.dob.lab.31 docker33" | tee -a /etc/hosts
 
 ## CLEANUP PHASE - cleanup runc - the pre-installed conflicts with docker. Also RHEL's podman also, but there is none in UBUNTU
 # echo "** Trying to remove pre-existing docker packages"

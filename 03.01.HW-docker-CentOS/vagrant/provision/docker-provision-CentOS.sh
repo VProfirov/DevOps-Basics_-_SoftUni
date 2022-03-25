@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
-echo "192.168.99.110 docker.dob.lab.0 docker0" | tee -a /etc/hosts
-echo "192.168.99.111 docker.dob.lab.1 docker1" | tee -a /etc/hosts
-echo "192.168.99.112 docker.dob.lab.2 docker2" | tee -a /etc/hosts
-echo "192.168.99.113 docker.dob.lab.3 docker3" | tee -a /etc/hosts
+echo "192.168.99.110 docker.dob.lab.10 docker10" | tee -a /etc/hosts
+echo "192.168.99.111 docker.dob.lab.11 docker11" | tee -a /etc/hosts
+echo "192.168.99.112 docker.dob.lab.12 docker12" | tee -a /etc/hosts
+echo "192.168.99.113 docker.dob.lab.13 docker13" | tee -a /etc/hosts
 
 # APPLICATION PROVISION PHASE
 echo " ** Clean pre-existing docker packages"
