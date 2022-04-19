@@ -1,0 +1,15 @@
+---
+all:
+  children:
+    openSUSE:
+      hosts:
+        openSUSE-130:
+          ansible_host: 192.168.99.130
+        openSUSE-131:
+          ansible_host: 192.168.99.131
+        openSUSE-132:
+          ansible_host: 192.168.99.132
+      vars:
+        ansible_user: vagrant
+        ansible_ssh_pass: vagrant
+...
