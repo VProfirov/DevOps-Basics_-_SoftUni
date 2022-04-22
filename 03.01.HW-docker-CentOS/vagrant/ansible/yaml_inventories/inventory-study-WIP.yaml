@@ -1,40 +1,40 @@
 ### DOC: "all" and "ungrouped" are implicitly always existing tags with their block spaces
 ### DOC: Every host is part of at least 2 groups (all & group/s) or (all & ungrouped)
 
-#--- ### DOC: this is an example of "all & groups" correct syntax =>
-# all:
-# ### INFO: ungrouped  is an implicit group in this context as no group is assigned to the listed below hosts
-# ### INFO: can be accessed by: ansible ungrouped -i /this.inventory_path -m "some-module" -a "some-arguments"
-#   hosts:
-#     ans:
-#       ansible_host: 192.168.99.110
-#   vars:
-#     ansible_user: vagrant
-#     ansible_ssh_pass: vagrant
-#   children:
-#     servers:
-#       children:
-#         webservers:
-#           hosts:
-#             192.168.99.130
-#         dbservers:
-#           hosts:
-#             192.168.99.131
-#       vars:
-#         ansible_user: vagrant
-#         ansible_ssh_pass: vagrant
-#       ## ini equivalent:
-#       # [some-group's:vars]
-#       # variable_key=variable_value
-#     stations:
-#       hosts:
-#       # a hosts' alias 'clnt' taking key:value pair of valid_ansible_key: ansible_host_ip-as-?string similar to 'ini' inventory :
-#         clnt:
-#           ansible_host: 192.168.99.132
-#   # [somegroup]
-#   ## alias ansible_variable_key=ansible_string_value ansible_X-variable_key=ansible_X_value ...
-#   # clnt ansible_host=192.168.99.132 ansible_user=vagrant ansible_ssh_pass=vagrant
-#   ### INFO: the thing is that in 'ini' everything is one-liner and any association is derived from the starting Attribute fa[group:tag] fallowed by the lines describing the ansible's keys to witch string variables are associated with '='
+--- ### DOC: this is an example of "all & groups" correct syntax =>
+all:
+### INFO: ungrouped  is an implicit group in this context as no group is assigned to the listed below hosts
+### INFO: can be accessed by: ansible ungrouped -i /this.inventory_path -m "some-module" -a "some-arguments"
+  hosts:
+    ans:
+      ansible_host: 192.168.99.110
+  vars:
+    ansible_user: vagrant
+    ansible_ssh_pass: vagrant
+  children:
+    servers:
+      children:
+        webservers:
+          hosts:
+            192.168.99.130
+        dbservers:
+          hosts:
+            192.168.99.131
+      vars:
+        ansible_user: vagrant
+        ansible_ssh_pass: vagrant
+      ## ini equivalent:
+      # [some-group's:vars]
+      # variable_key=variable_value
+    stations:
+      hosts:
+      # a hosts' alias 'clnt' taking key:value pair of valid_ansible_key: ansible_host_ip-as-?string similar to 'ini' inventory :
+        clnt:
+          ansible_host: 192.168.99.132
+  # [somegroup]
+  ## alias ansible_variable_key=ansible_string_value ansible_X-variable_key=ansible_X_value ...
+  # clnt ansible_host=192.168.99.132 ansible_user=vagrant ansible_ssh_pass=vagrant
+  ### INFO: the thing is that in 'ini' everything is one-liner and any association is derived from the starting Attribute fa[group:tag] fallowed by the lines describing the ansible's keys to witch string variables are associated with '='
 # ...
 
 
@@ -42,76 +42,38 @@
 ### DOC: Below is an example of "ungrouped &| groups" syntax
 ---
 ## This section of "ungrouped" is skip-able
-ungrouped:
-  hosts:
-    hostAlias_01:
-      ansible_host: 192.168.99.110
-  vars:
-    #ansible_keys: some_string
-    ansible_user: vagrant
-    ansible_ssh_pass: vagrant
-## INFO: UNGROUPED can be omitted and the inventory can start with the groups of hosts directly
-servers:
-  children:
-    webservers:
-      hosts:
-        hostAlias-02:
-          ansible_host: 192.168.99.130
-      # vars: ### NOTE: this vars is valid for the group-block
-      #   ansible_user: vagrant
-      #   ansible_ssh_pass: vagrant
-    dbservers:
-      hosts:
-        hostAlias03:
-          ansible_host: 192.168.99.131
-      # vars:
-      #   ansible_user: vagrant
-      #   ansible_ssh_pass: vagrant
-  vars:
-      ansible_user: vagrant
-      ansible_ssh_pass: vagrant
-stations:
-  hosts:
-    hostAlias04:
-      ansible_host: 192.168.99.132
-  vars:
-    ansible_user: vagrant
-    ansible_ssh_pass: vagrant
-...
-
-# ---
 # ungrouped:
 #   hosts:
-#     green.example.com:
-#       ansible_host:               192.168.99.110
-#     blue.example.com:
-#     192.168.99.1:
-#     192.168.99.10:
+#     hostAlias_01:
+#       ansible_host: 192.168.99.110
 #   vars:
+#     #ansible_keys: some_string
 #     ansible_user: vagrant
 #     ansible_ssh_pass: vagrant
-
-# webservers:
-#   hosts:
-#     alpha.example.org:
-#     beta.example.org:
-#       ansible_host:               192.168.99.110
-#     192.168.1.130:
-#     192.168.1.131:
-#     www[001:006].example.com:
+# ## INFO: UNGROUPED can be omitted and the inventory can start with the groups of hosts directly
+# servers:
+#   children:
+#     webservers:
+#       hosts:
+#         hostAlias-02:
+#           ansible_host: 192.168.99.130
+#       # vars: ### NOTE: this vars is valid for the group-block
+#       #   ansible_user: vagrant
+#       #   ansible_ssh_pass: vagrant
+#     dbservers:
+#       hosts:
+#         hostAlias03:
+#           ansible_host: 192.168.99.131
+#       # vars:
+#       #   ansible_user: vagrant
+#       #   ansible_ssh_pass: vagrant
 #   vars:
-#     nginx_http_port:              80
-#     nginx_https_port:             443
-#     ansible_user: vagrant
-#     ansible_ssh_pass: vagrant
-
-# dbservers:
+#       ansible_user: vagrant
+#       ansible_ssh_pass: vagrant
+# stations:
 #   hosts:
-#     192.168.99.132:
-#     192.168.99.131:
-#     # db01.intranet.mydomain.net
-#     # db02.intranet.mydomain.net
-#     # db-[99:101]-node.example.com
+#     hostAlias04:
+#       ansible_host: 192.168.99.132
 #   vars:
 #     ansible_user: vagrant
 #     ansible_ssh_pass: vagrant

@@ -13,3 +13,4 @@ all:
         ansible_user: vagrant
         ansible_ssh_pass: vagrant
 ...
+
