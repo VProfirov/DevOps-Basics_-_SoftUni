@@ -1,0 +1,47 @@
+ansible-doc [core 2.12.3]
+  config file = /etc/ansible/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.8/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible-doc
+  python version = 3.8.12 (default, Sep 21 2021, 00:10:52) [GCC 8.5.0 20210514 (Red Hat 8.5.0-3)]
+  jinja version = 2.10.3
+  libyaml = True
+Using /etc/ansible/ansible.cfg as config file
+- name: Generic OS package manager
+  package:
+      name:                  # (required) Package name, or package specifier with
+                             # version. Syntax
+                             # varies with package
+                             # manager. For
+                             # example `name-1.0'
+                             # or `name=1.0'.
+                             # Package names also
+                             # vary with package
+                             # manager; this
+                             # module will not
+                             # "translate" them
+                             # per distro. For
+                             # example `libyaml-
+                             # dev', `libyaml-
+                             # devel'.
+      state:                 # (required) Whether to install (`present'), or
+                             # remove (`absent') a
+                             # package. You can
+                             # use other states
+                             # like `latest' ONLY
+                             # if they are
+                             # supported by the
+                             # underlying package
+                             # module(s) executed.
+      use:                   # The required package manager module to use (`yum',
+                             # `apt', and so on).
+                             # The default 'auto'
+                             # will use existing
+                             # facts or try to
+                             # autodetect it. You
+                             # should only use
+                             # this field if the
+                             # automatic selection
+                             # is not working for
+                             # some reason.

@@ -1,0 +1,12 @@
+Log created: 2022-04-24T11:11:15.151401000Z
+Process ID:  12156 (0x2f7c)
+Parent PID:  1 (0x1)
+Executable:  /usr/lib/virtualbox/VBoxHeadless
+Arg[0]: /usr/lib/virtualbox/VBoxHeadless
+Arg[1]: --comment
+Arg[2]: docker-host-OpenSUSE-130
+Arg[3]: --startvm
+Arg[4]: 8607b813-fd26-487a-9d8f-8dd37cb1435d
+Arg[5]: --vrde
+Arg[6]: config
+AddRef: illegal refcnt=3221225469 state=2

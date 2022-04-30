@@ -1,0 +1,107 @@
+ansible-doc [core 2.12.3]
+  config file = /vagrant/ansible/yaml_inventories/ansible.cfg
+  configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
+  ansible python module location = /usr/lib/python3.8/site-packages/ansible
+  ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
+  executable location = /usr/bin/ansible-doc
+  python version = 3.8.12 (default, Sep 21 2021, 00:10:52) [GCC 8.5.0 20210514 (Red Hat 8.5.0-3)]
+  jinja version = 2.10.3
+  libyaml = True
+Using /vagrant/ansible/yaml_inventories/ansible.cfg as config file
+redirecting (type: modules) ansible.builtin.firewalld to ansible.posix.firewalld
+- name: Manage arbitrary ports/services with firewalld
+  firewalld:
+      icmp_block:            # The ICMP block you would like to add/remove
+                             # to/from a zone in
+                             # firewalld.
+      icmp_block_inversion:   # Enable/Disable inversion of ICMP blocks for a zone
+                             # in firewalld.
+      immediate:             # Should this configuration be applied immediately,
+                             # if set as
+                             # permanent.
+      interface:             # The interface you would like to add/remove to/from
+                             # a zone in
+                             # firewalld.
+      masquerade:            # The masquerade setting you would like to
+                             # enable/disable
+                             # to/from zones
+                             # within firewalld.
+      offline:               # Whether to run this module even when firewalld is
+                             # offline.
+      permanent:             # Should this configuration be in the running
+                             # firewalld
+                             # configuration or
+                             # persist across
+                             # reboots. As of
+                             # Ansible 2.3,
+                             # permanent
+                             # operations can
+                             # operate on
+                             # firewalld configs
+                             # when it is not
+                             # running (requires
+                             # firewalld >=
+                             # 0.3.9). Note that
+                             # if this is `no',
+                             # immediate is
+                             # assumed `yes'.
+      port:                  # Name of a port or port range to add/remove to/from
+                             # firewalld. Must be
+                             # in the form
+                             # PORT/PROTOCOL or
+                             # PORT-PORT/PROTOCOL
+                             # for port ranges.
+      port_forward:          # Port and protocol to forward using firewalld.
+      rich_rule:             # Rich rule to add/remove to/from firewalld. See
+                             # Syntax for
+                             # firewalld rich
+                             # language rules <htt
+                             # ps://firewalld.org/
+                             # documentation/man-p
+                             # ages/firewalld.rich
+                             # language.html>.
+      service:               # Name of a service to add/remove to/from firewalld.
+                             # The service must be
+                             # listed in output of
+                             # firewall-cmd --get-
+                             # services.
+      source:                # The source/network you would like to add/remove
+                             # to/from firewalld.
+      state:                 # (required) Enable or disable a setting. For ports:
+                             # Should this port
+                             # accept (enabled) or
+                             # reject (disabled)
+                             # connections. The
+                             # states `present'
+                             # and `absent' can
+                             # only be used in
+                             # zone level
+                             # operations (i.e.
+                             # when no other
+                             # parameters but zone
+                             # and state are set).
+      target:                # firewalld Zone target If state is set to `absent',
+                             # this will reset the
+                             # target to default
+      timeout:               # The amount of time in seconds the rule should be
+                             # in effect for when
+                             # non-permanent.
+      zone:                  # The firewalld zone to add/remove to/from. Note
+                             # that the default
+                             # zone can be
+                             # configured per
+                             # system but `public'
+                             # is default from
+                             # upstream. Available
+                             # choices can be
+                             # extended based on
+                             # per-system configs,
+                             # listed here are
+                             # "out of the box"
+                             # defaults. Possible
+                             # values include
+                             # `block', `dmz',
+                             # `drop', `external',
+                             # `home', `internal',
+                             # `public',
+                             # `trusted', `work'.
