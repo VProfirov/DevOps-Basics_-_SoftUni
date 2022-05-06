@@ -1,0 +1,19 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Install Apache HTTP server
+      zypper: name=apache2 state=present
+
+    - name: Allow HTTP service connection through Firewall (apache2)
+      firewalld: service=apache2 state=enabled permanent=true immediate=true
+
+    - name: Add "Listen 8080" to Apache configuration
+      shell: sed -ir '/^Listen 80/a Listen 8080' /etc/apache2/listen.conf
+
+    - name: Add port 8080 for Apache (default(80)-root-lvl is provided by adding the apache2 service to the firewall)
+      firewalld:  port=8080/tcp state=enabled permanent=true immediate=true
+
+    - name: Start and Enable Apache HTTP server
+      service: name=apache2 state=reloaded enabled=true
+...

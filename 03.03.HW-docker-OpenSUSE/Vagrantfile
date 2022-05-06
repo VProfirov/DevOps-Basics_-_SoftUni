@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
 		docker.vm.provider "virtualbox" do |vb|
 			vb.memory = "1024"
 			vb.cpus = "1"
-			vb.name = "03.03.study-docker-OpenSUSE-131"
+			vb.name = "03.03.docker-host-OpenSUSE-131"
 		end
 
 		## Online repo

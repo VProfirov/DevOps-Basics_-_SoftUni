@@ -14,8 +14,15 @@ all:
           hosts:
             db:
               ansible_host: 192.168.99.131
+      vars:
+        ansible_user: vagrant
+        ansible_ssh_pass: vagrant
     stations:
       hosts:
         clnt:
           ansible_host: 192.168.99.132
+    failingHosts:
+      hosts:
+        failingHost:
+          ansible_host: 192.168.99.199
 ...
