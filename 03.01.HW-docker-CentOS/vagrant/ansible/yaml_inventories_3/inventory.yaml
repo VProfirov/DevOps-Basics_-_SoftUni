@@ -10,15 +10,20 @@ all:
           hosts:
             web:
               ansible_host: 192.168.99.130
+            webu:
+              ansible_host: 192.168.99.110
         databases:
           hosts:
             db:
               ansible_host: 192.168.99.131
-      vars:
-        ansible_user: vagrant
-        ansible_ssh_pass: vagrant
+      # vars:
+      #   ansible_user: vagrant
+      #   ansible_ssh_pass: vagrant
     stations:
       hosts:
         clnt:
           ansible_host: 192.168.99.132
+  vars:
+    ansible_user: vagrant
+    ansible_ssh_pass: vagrant
 ...

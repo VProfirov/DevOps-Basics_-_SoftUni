@@ -1,0 +1,55 @@
+---
+- hosts: webservers
+  become: true
+
+  tasks:
+    # RedHat (RHEL; CentOS; Fedora)
+  - name: Install Apache Server
+    dnf: name=httpd state=present
+    when: ansible_os_family == "RedHat"
+
+  - name: Add "Listen 8080" to Apache configuration
+    shell: sed -ir '/^Listen 80/a Listen 8080' /etc/httpd/conf/httpd.conf
+    when: ansible_os_family == "RedHat"
+
+  - name: Start Apache httpd.service
+    service: name=httpd state=reloaded enabled=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Enable Apache over Firewall
+    firewalld: service=http state=enabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Enable 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=enabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Adding an index.html "Hi Ansible"
+    copy: src=html/index.html dest=/var/www/html/
+    when: ansible_os_family == "RedHat"
+
+    # OpenSUSE
+  - name: Install Apache Server
+    zypper: name=apache2 state=present
+    when: ansible_os_family == "Suse"
+
+  - name: Add "Listen 8080" to Apache configuration
+    shell: sed -ir '/^Listen 80/a Listen 8080' /etc/apache2/listen.conf
+    when: ansible_os_family == "Suse"
+
+  - name: Start Apache apache2.service
+    service: name=apache2 state=reloaded enabled=true
+    when: ansible_os_family == "Suse"
+
+  - name: Enable Apache over Firewall
+    firewalld: service=apache2 state=enabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: Enable 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=enabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: Adding an index.html "Hi Ansible"
+    copy: src=html/index.html dest=/srv/www/htdocs/
+    when: ansible_os_family == "Suse"
+...
