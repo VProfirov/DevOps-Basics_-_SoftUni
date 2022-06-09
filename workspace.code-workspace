@@ -13,6 +13,9 @@
 			".flatpak": true,
 			".flatpak/**": true,
 			"_build/**": true
+		},
+		"yaml.schemas": {
+			"https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible.json#/$defs/playbook": "file:///home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/04.01.HW-Ansible-CentOS/vagrant/ansible/01.Ansible-nh/roles/ansible/main.yaml"
 		}
 	}
 }

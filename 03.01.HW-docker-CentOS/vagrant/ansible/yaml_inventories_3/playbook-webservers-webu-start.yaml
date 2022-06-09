@@ -8,12 +8,11 @@
     # RedHat (RHEL; CentOS; Fedora)
   - name: Install Apache Server on RHEL
     dnf: name=httpd state=present
-    when: ansible_os_family == "RedHat"
+    when: ansible_os_family|lower == "redhat"
 
   - name: Add "Listen 8080" to Apache configuration
     shell: |
-      if [[ "! grep -iE \"Listen 8080\" /etc/httpd/conf/httpd.conf" && \
-      "grep -iE \"Listen 80\" /etc/httpd/conf/httpd.conf" ]]; then
+      if [[ -z $(grep -iE "^Listen 8080\$" /etc/httpd/conf/httpd.conf) ]] && [[ -n $(grep -iE "^Listen 80\$" /etc/httpd/conf/httpd.conf) ]]; then
         sed -ir '/^Listen 80/a Listen 8080' /etc/httpd/conf/httpd.conf;
       fi;
     when: ansible_os_family == "RedHat"
@@ -41,16 +40,21 @@
     copy: src=html/index.html dest=/var/www/html/
     when: ansible_os_family == "RedHat"
 
+  - name: Applying template on top of existing the index.html
+    vars:
+      v_host_type: RedHat
+    template: src=roles/common/templates/index.j2 dest=/var/www/html/index.html
+    when: ansible_os_family == "RedHat"
+
     # OpenSUSE
   - name: Install Apache Server on OpenSUSE
     zypper: name=apache2 state=present
-    when: ansible_os_family == "Suse"
+    when: ansible_os_family|lower == "suse"
 
   - name: Add "Listen 8080" to Apache configuration
     shell: |
-      if [[ "! grep -iE \"Listen 8080\" /etc/apache2/listen.conf" && \
-      "grep -iE \"Listen 80\" /etc/apache2/listen.conf" ]]; then
-        sed -ir '/^Listen 80/a Listen 8080' /etc/apache2/listen.conf;
+      if [[ -z $(grep -iE "^Listen 8080\$" /etc/apache2/listen.conf) ]] && [[ -n $(grep -iE "^Listen 80\$" /etc/apache2/listen.conf) ]]; then
+        sed -ir '/^Listen 80$/a Listen 8080' /etc/apache2/listen.conf;
       fi;
     when: ansible_os_family == "Suse"
 
@@ -75,5 +79,11 @@
 
   - name: Adding an index.html "Hi Ansible"
     copy: src=html/index.html dest=/srv/www/htdocs/
+    when: ansible_os_family == "Suse"
+
+  - name: Applying template on top of existing the index.html
+    vars:
+      v_host_type: Suse
+    template: src=roles/common/templates/index.j2 dest=/srv/www/htdocs/index.html
     when: ansible_os_family == "Suse"
 ...
