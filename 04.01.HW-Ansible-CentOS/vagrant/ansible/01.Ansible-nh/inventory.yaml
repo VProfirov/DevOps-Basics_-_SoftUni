@@ -1,0 +1,30 @@
+---
+all:
+  vars:
+    ansible_user: vagrant
+    ansible_ssh_pass: vagrant
+  hosts:
+    ans:
+      ansible_user : 192.168.99.132
+  children:
+    servers:
+      children:
+        webservers:
+          hosts:
+            web01:
+              ansible_user : 192.168.99.130
+            db02:
+              ansible_user : 192.168.99.100
+        dbservers:
+          hosts:
+            db01:
+              ansible_user : 192.168.99.131
+            db02:
+              ansible_user : 192.168.99.100
+        clients:
+          hosts:
+            clnt01:
+              ansible_user : 192.168.99.132
+            clnt02:
+              ansible_user : 192.168.99.100
+...
