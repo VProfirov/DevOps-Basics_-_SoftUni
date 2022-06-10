@@ -1,0 +1,27 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+	config.vm.boot_timeout = 100; #default(300)
+	config.vm.box_check_update = true; #default(true)
+
+	config.vm.define "ubuntu-docker" do |docker|
+		docker.vm.provider "virtualbox" do |vb|
+			vb.memory = "2048"
+			vb.cpus = "2"
+			vb.name = "study-docker-Ubuntu"
+		end
+
+		docker.vm.box = "VProfirov/Ubuntu-customized"
+		docker.vm.box_version = "1.4"
+		docker.vm.hostname = "docker-host-Ubuntu"
+
+		docker.vm.network "private_network", ip:"192.168.99.102"
+		docker.vm.network :forwarded_port, guest: 8080, host:8080, auto_correct: true
+
+		docker.vm.synced_folder "vagrant/", "/vagrant"
+
+		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-Ubuntu.sh"
+	end
+end
