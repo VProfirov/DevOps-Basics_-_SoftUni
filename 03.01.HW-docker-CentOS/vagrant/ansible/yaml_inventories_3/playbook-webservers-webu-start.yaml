@@ -2,6 +2,7 @@
 - name : Apache Deployment on the webservers
   hosts: webservers
   # remote_user: remote_userX
+  # remote_user: root # is as "become: true"
   become: true
 
   tasks:
