@@ -1,5 +1,5 @@
 ---
-- name : Apache Deployment on the webservers
+- name: Apache Deployment on the webservers
   hosts: webservers
   # remote_user: remote_userX
   # remote_user: root # is as "become: true"
@@ -38,13 +38,13 @@
     when: ansible_os_family == "RedHat"
 
   - name: Adding an index.html "Hi Ansible"
-    copy: src=html/index.html dest=/var/www/html/
+    copy: src=html/index.html dest=/var/www/html/ mode=0644
     when: ansible_os_family == "RedHat"
 
   - name: Applying template on top of existing the index.html
     vars:
       v_host_type: RedHat
-    template: src=roles/common/templates/index.j2 dest=/var/www/html/index.html
+    template: src=roles/common/templates/index.j2 dest=/var/www/html/index.html mode=0644
     when: ansible_os_family == "RedHat"
 
     # OpenSUSE
@@ -79,12 +79,12 @@
     when: ansible_os_family == "Suse"
 
   - name: Adding an index.html "Hi Ansible"
-    copy: src=html/index.html dest=/srv/www/htdocs/
+    copy: src=html/index.html dest=/srv/www/htdocs/ mode=0644
     when: ansible_os_family == "Suse"
 
   - name: Applying template on top of existing the index.html
     vars:
       v_host_type: Suse
-    template: src=roles/common/templates/index.j2 dest=/srv/www/htdocs/index.html
+    template: src=roles/common/templates/index.j2 dest=/srv/www/htdocs/index.html mode=0644
     when: ansible_os_family == "Suse"
 ...

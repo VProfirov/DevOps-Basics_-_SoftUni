@@ -4,5 +4,4 @@
 
 - name: "Configuraion: "
   import_playbook: ansible_configuration.yaml
-
 ...
