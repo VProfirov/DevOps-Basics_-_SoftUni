@@ -69,12 +69,6 @@ echo "--> lazydocker - cli-gui for basic interaction with docker"
 dnf copr enable -y atim/lazydocker
 dnf install -y lazydocker
 
-# SYSTEM UPDATE
-echo "** Updating the system"
-dnf update -y -x kernel\*
-
-
-
 # Addition repos added for development purposes NB!!!
 echo "** Adding additional repos for development purposes (rpmfusion(free-nonfree);openfusion;etc...)"
 dnf install --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm -y
@@ -82,3 +76,11 @@ dnf install --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonf
 dnf install --nogpgcheck https://mirrors.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm -y
 
 dnf install --nogpgcheck http://repo.openfusion.net/centos7-x86_64/openfusion-release-0.8-1.of.el7.noarch.rpm -y
+
+# SYSTEM UPDATE
+echo "** Updating the system"
+dnf update -y -x kernel\* --nobest
+
+echo "** Adding some cmd tools like (tree; bat; etc..)"
+sudo dnf install tree -y
+

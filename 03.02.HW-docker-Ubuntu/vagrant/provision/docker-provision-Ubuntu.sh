@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+!/usr/bin/env bash
 
 # SYSTEM PROVISION PHASE
 echo " ** Add hosts..."
@@ -11,6 +11,7 @@ apt-get remove docker docker-engine docker.io containerd runc
 # APPLICATION PROVISION PHASE
 echo "** Set up the repository: Update the apt package index and install packages to allow apt to use a repository over HTTPS:"
 apt-get update
+apt-get upgrade
 
 apt-get install -y \
     apt-transport-https \
@@ -47,3 +48,8 @@ getent group docker;
 ## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
+
+
+echo "** Adding some CMD Tools like (tree; bat; etc...)"
+sudo apt install tree -y
+
