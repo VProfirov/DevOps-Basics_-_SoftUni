@@ -51,5 +51,5 @@ getent group docker;
 
 
 echo "** Adding some CMD Tools like (tree; bat; etc...)"
-sudo apt install tree -y
+sudo apt install tree bat -y
 
