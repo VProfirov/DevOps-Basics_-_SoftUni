@@ -1,0 +1,10 @@
+# Login,vagrant@CentOS-Stream-base-os:/home/vagrant,/dev/pts/0,10.0.2.2 45730 22,2021-06-28 13:38:18.938210277+03:00,2021-06-28 13:38:18.938210277+03:00
+
+# CMD,$?=0,vagrant@CentOS-Stream-base-os:/home/vagrant,/dev/pts/0,10.0.2.2 45730 22,2021-06-28 13:38:18.938210277+03:00,2021-06-28 13:38:43.794186653+03:00
+sudo chsh -s $(which zsh)
+# CMD,$?=0,vagrant@CentOS-Stream-base-os:/home/vagrant,/dev/pts/0,10.0.2.2 45730 22,2021-06-28 13:38:18.938210277+03:00,2021-06-28 13:38:50.521271560+03:00
+sudo lchsh -s $(which zsh)
+# CMD,$?=0,vagrant@CentOS-Stream-base-os:/home/vagrant,/dev/pts/0,10.0.2.2 45730 22,2021-06-28 13:38:18.938210277+03:00,2021-06-28 13:39:06.623072945+03:00
+sudo lchsh -i vagrant
+# Logout,vagrant@CentOS-Stream-base-os:/home/vagrant,/dev/pts/0,10.0.2.2 45730 22,2021-06-28 13:38:18.938210277+03:00,2021-06-28 13:39:08.572126991+03:00
+sudo lchsh -i vagrant
