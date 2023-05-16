@@ -5,7 +5,7 @@
 
 echo "This script should be executed from within the managed Vagrant_box/Virtualbox."
 
-echo "The persumed $USER is 'vagrant'"
+echo "The presumed $USER is 'vagrant'"
 
 cd /home/"$USER" || return
 cp -rv {bash_history,.bash_history,.zsh_history} /vagrant/cli_history
