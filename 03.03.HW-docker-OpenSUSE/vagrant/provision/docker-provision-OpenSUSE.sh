@@ -44,5 +44,9 @@ getent group docker;
  zypper refresh
  zypper update -y
 
+# shell-history sync
+bash ./provisioning-cli_history_sync.sh
+
+
 ###### PROVISION the Vagrant Machines
 # /vagrant/provision/'Docker Machine and Client install.sh'

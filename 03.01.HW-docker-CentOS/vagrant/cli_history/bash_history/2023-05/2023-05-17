@@ -1,0 +1,6 @@
+# Login,vagrant@docker-host-CentOS-112:/home/vagrant,/dev/pts/0,10.0.2.2 45864 22,2023-05-17 12:35:07.723039722+03:00,2023-05-17 12:35:07.723039722+03:00
+
+# CMD,$?=0,vagrant@docker-host-CentOS-112:/home/vagrant,/dev/pts/0,10.0.2.2 45864 22,2023-05-17 12:35:07.723039722+03:00,2023-05-17 12:35:11.414721432+03:00
+echo $HISTFILE
+# Logout,vagrant@docker-host-CentOS-112:/home/vagrant,/dev/pts/0,10.0.2.2 45864 22,2023-05-17 12:35:07.723039722+03:00,2023-05-17 12:35:49.916975119+03:00
+echo $HISTFILE
