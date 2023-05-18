@@ -1,25 +1,21 @@
 #!/usr/lib/env bash
 
 RED='\033[0;31m'
-POSITION="echo -e ${RED}$(pwd)"
+PWD_COLORED_RED="echo -e ${RED}$(pwd)"
 
-cd '/home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni'
+# Main Work-Dir path:
+cd "/home/$USER/Documents/GitHub/DevOps-Basics_-_SoftUni" || exit
 
-cd 03.01.HW-docker-CentOS
-$POSITION
+PARENT_DIR_PATH="03.Docker_Advanced"
+cd "$PARENT_DIR_PATH" || exit
 
-vagrant status
+TARGET_DIRS=(	"03.01.HW-docker-CentOS" \
+		"03.02.HW-docker-Ubuntu" \
+		"03.03.HW-docker-OpenSUSE" )
 
-cd ../03.02.HW-docker-Ubuntu
-$POSITION
-vagrant status
-
-cd ../03.03.HW-docker-OpenSUSE
-$POSITION
-vagrant status
-
-cd ../
-$POSITION
-
-
-# NOTE: loop it
+for DIR in "${TARGET_DIRS[@]}";do
+	cd "$DIR" || exit
+	$PWD_COLORED_RED
+	vagrant status
+	cd ..
+done
