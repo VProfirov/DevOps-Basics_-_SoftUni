@@ -84,6 +84,5 @@ dnf update -y -x kernel\* --nobest
 echo "** Adding some cmd tools like (tree; bat; etc..)"
 sudo dnf install tree -y
 
-echo "path $(pwd)"
-# shell-history sync
-bash /vagrant/provision/provisioning-cli_history_sync.sh
+
+# shell-history sync as part of the provisioning --> Fallowing the SOLID principles

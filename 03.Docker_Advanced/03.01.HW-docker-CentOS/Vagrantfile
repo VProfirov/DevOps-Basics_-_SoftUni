@@ -37,6 +37,7 @@ Vagrant.configure("2") do |config|
 		docker.vm.synced_folder "vagrant/", "/vagrant"
 
 		docker.vm.provision "initialize-docker", type: "shell", privileged:true, path:"vagrant/provision/docker-provision-CentOS.sh"
+		docker.vm.provision "cli_history_sync", type: "shell", privileged:true, path:"vagrant/provision/provisioning-cli_history_sync.sh"
 	end
 	config.vm.define "centOS-docker-111" do |docker|
 		docker.vm.provider "virtualbox" do |vb|

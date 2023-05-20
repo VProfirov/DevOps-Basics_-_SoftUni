@@ -1,0 +1,1 @@
+/home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/00.01.Automation_Scripts/provisioning-cli_history_sync.sh

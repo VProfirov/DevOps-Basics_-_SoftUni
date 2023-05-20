@@ -1,4 +1,4 @@
-#!/bin/usr/env bash
+#!/usr/bin/env bash
 
 # NOTE: add this to the OpenSUSE and Ubunutu  provisioning
 
@@ -28,4 +28,21 @@ if [ ! -h /home/vagrant/.zsh_history ] && [ ! -h /home/vagrant/.bash_history ] &
         ln -s /vagrant/cli_history/.zsh_history /home/vagrant/.zsh_history;
         ln -s /vagrant/cli_history/.bash_history /home/vagrant/.bash_history;
         ln -s /vagrant/cli_history/bash_history /home/vagrant/bash_history;
+
+        # NOTE: on the next vagrant ssh the .zsh_history is re-written and I should export the HISTFILE=/vagrant/cli... and source the .zshrc
+        grep -E "HISTFILE=" $HOME/.zshrc || echo 'export HISTFILE="/vagrant/cli_history/.zsh_history"' || tee -a $HOME/.zshrc
 fi
+echo "** redirecting the HISTFILE through .zshrc: /vagrant/cli_history/.zsh_history"
+# ls -lahtF /vagrant
+# ls -lahtF /vagrant/cli_history
+
+# ls -lahtF /vagrant/cli_history/.zsh_history
+# # chmod go-rw /vagrant/cli_history/.zsh_history
+# ls -lahtF /vagrant/cli_history/.zsh_history
+
+# NOTE: The fallowing does FUCKALL (aka nothing)
+# cd /vagrant/cli_history;pwd;
+# echo "HISTFILE --> $HISTFILE"
+# #source HISTFILE="/vagrant/cli_history/.zsh_history"
+# export HISTFILE="/vagrant/cli_history/.zsh_history"
+# echo "HISTFILE --> $HISTFILE"

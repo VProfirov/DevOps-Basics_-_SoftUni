@@ -1,4 +1,4 @@
-#!/bin/usr/env bash
+#!/usr/bin/env bash
 
 # NOTE: add this to the OpenSUSE and Ubunutu  provisioning
 
@@ -31,5 +31,5 @@ if [ ! -h /home/vagrant/.zsh_history ] && [ ! -h /home/vagrant/.bash_history ] &
 
         # NOTE: on the next vagrant ssh the .zsh_history is re-written and I should export the HISTFILE=/vagrant/cli... and source the .zshrc
 
-        source HISTFILE="/vagrant/cli_history/.zsh_history"
+        # NOTE: this won't work--> export HISTFILE="/vagrant/cli_history/.zsh_history" <-- HISTFILE should be manipulted from the shell's .{bash,zsh}rc file
 fi
