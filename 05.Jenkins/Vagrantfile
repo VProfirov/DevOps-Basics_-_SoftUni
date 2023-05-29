@@ -1,0 +1,57 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+
+	config.vm.boot_timeout = 100; #default(300)
+	config.vm.box_check_update = true;
+	config.ssh.insert_key = false # check
+
+	config.vm.define "centOS-ansible-150" do |ans|
+		ans.vm.provider "virtualbox" do |vb|
+			vb.memory = "1024"
+			vb.cpus = "1"
+			vb.name = "ansible-host-CentOS-150"
+		end
+
+		ans.vm.box = "VProfirov/CentOS-Stream-08-customized"
+		ans.vm.box_version = "1.4"
+
+		ans.vm.hostname = "ansible-host-CentOS-150"
+		#vbox-to-ssh
+		ans.vm.network :forwarded_port, id: "ssh", guest: 22, host:2530, auto_correct: true
+
+		ans.vm.network :private_network, ip: "192.168.98.150"
+		ans.vm.network :forwarded_port, guest: 8080, host:8550, auto_correct: true
+
+		# Directory sync: Platform dynamic (not defining `type:`)
+		# Directory sync using `rsync` (more optimized but needs rsync (installed by default on most Unix machines))
+		ans.vm.synced_folder "vagrant/", "/vagrant", type:"rsync", owner: "vagrant", group: "vagrant"
+
+		ans.vm.provision "initialize_ansible", type: "shell", privileged: true, path: "vagrant/provisioning/ansible-provision-CentOS.sh", upload_path: "/home/vagrant/Downloads/ans-prov-CentOS.sh"
+
+	end
+
+	config.vm.define "centOS-Jenkins-151" do |jenkins|
+		jenkins.vm.provider "virtualbox" do |vb|
+			vb.memory = "1024"
+			vb.cpus = "1"
+			vb.name = "jenkins-host-CentOS-151"
+		end
+	jenkins.vm.box = "VProfirov/CentOS-Stream-08-customized"
+	jenkins.vm.box_version = "1.4"
+
+	jenkins.vm.hostname = "jenkins-host-CentOS-151"
+
+	jenkins.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2531, auto_correct: true
+
+	jenkins.vm.network :private_network, ip:"192.168.98.151"
+	jenkins.vm.network :forwarded_port, guest:8080, host:8551, auto_correct:true
+
+	jenkins.vm.synced_folder "vagrant/", "/vagrant", type: "rsync", owner: "vagrant", group: "vagrant"
+
+	jenkins.vm.provision "initialize-jenkins", type: "shell", privileged: true, path: "vagrant/provisioning/jenkins-provision-CentOS.sh", #upload_path: "/tmp/scripts/ans-scripts-CoreOS.sh"
+	# NOTE: exposes a copy of the provisioning scripts to the guest that will be substitute with the original every time (even if changed on the guest) the host runs a provisioning (ex: vagrant provision "initialize-jenkins")
+	end
+
+end

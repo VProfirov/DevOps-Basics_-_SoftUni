@@ -1,0 +1,1 @@
+{"rsync":{"/vagrant":{"type":"rsync","owner":"vagrant","group":"vagrant","guestpath":"/vagrant","hostpath":"/home/vas/Documents/GitHub/DevOps-Basics_-_SoftUni/05.Jenkins/vagrant","disabled":false,"__vagrantfile":true}}}
