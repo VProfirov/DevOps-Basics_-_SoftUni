@@ -1,34 +1,101 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
+# -*- mode:ruby -*-
+# vi: set ft=ruby:
 
-Vagrant.configure(2) do |config|
-    
-  config.ssh.insert_key = false
+Vagrant.configure("2") do |config|
+  load "vagrant-config/teachers-Vagrantfile.rb"
 
-  config.vm.define "ans" do |ans|
+  config.vm.define "centOS-ansible-140" do |ans|
+    ans.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+      vb.name = "04.01.ansible-host-CentOS-140"
+    end
+
     ans.vm.box = "VProfirov/CentOS-Stream-08-customized"
-    ans.vm.hostname = "ans.dob.lab"
-    ans.vm.network "private_network", ip: "192.168.98.200"
+    ans.vm.box_version = "1.4"
+
+    ans.vm.hostname = "ans-host-CentOS-140"
+
+    # Virtualbox connection definition
+    ans.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2140, auto_correct: true
+    # Virt-env network and port export
+    ans.vm.network :private_network, ip: "192.168.99.140"
+    ans.vm.network :forwarded_port, guest:8080, host:8140, auto_correct: true
+    # Virt-sync-depot
     ans.vm.synced_folder "vagrant/", "/vagrant"
+    # Basic provisioning (UNDONE - and all the rest)
+    ans.vm.provision "initialize-ansible", type: "shell", privileged: true, path:"vagrant/provision/ansible-provision-CentOS.sh"
+
+    # Hist_host_sync (UNDONE)
+    # ans.vm.provision "cli_history_sync", type: "shell", privileged:true, path:"vagrant/provision/provisioning-cli_history_sync.sh"
   end
 
-  config.vm.define "web" do |web|
+  config.vm.define "centOS-web-141" do |web|
+    web.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+      vb.name = "04.01.web-host-CentOS-141"
+    end
+
     web.vm.box = "VProfirov/CentOS-Stream-08-customized"
-    web.vm.hostname = "web.dob.lab"
-    web.vm.network "private_network", ip: "192.168.98.201"
-    web.vm.network "forwarded_port", guest: 80, host: 8080
-  end
+    web.vm.box_version = "1.4"
 
-  config.vm.define "db" do |db|
+    web.vm.hostname = "web-host-CentOS-141"
+
+    web.vm.network :forwarded_port, id: "ssh", guest: 22, host: 2141, auto_correct: true
+
+    web.vm.network :private_network, ip:"192.168.99.141"
+    web.vm.network :forwarded_port, id: "web_index_http", guest: 80, host:8041, auto_correct: true
+    web.vm.network :forwarded_port, id: "web_index_http_cache", guest: 8080, host:8042, auto_correct: true
+    web.vm.network :forwarded_port, id: "web_index_https", guest: 443, host:8043, auto_correct: true
+
+    web.vm.synced_folder "vagrant/", "/vagrant"
+    # aoache2 on CentOS is httpd
+    web.vm.provision "initialize-web-host-apache2", type:"shell", privileged: true, path: "vagrant/provision/provisioning-web-host-apache2.sh"
+
+    # Hist_host_sync ->
+  end
+  
+  config.vm.define "centOS-db-142" do |db|
+    db.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+      vb.name = "04.01.db-host-CentOS-142"
+    end
+
     db.vm.box = "VProfirov/CentOS-Stream-08-customized"
-    db.vm.hostname = "db.dob.lab"
-    db.vm.network "private_network", ip: "192.168.98.202"
+    db.vm.box_version = "1.4"
+
+    db.vm.hostname = "web-host-CentOS-142"
+
+    db.vm.network :forwarded_port, id: "ssh", guest:22, host: 2142, auto_correct:true
+
+    db.vm.network :private_network, ip: "192.168.99.142"
+    db.vm.network :forwarded_port, id: "db_port_mysql", guest:3306, host:3306
+
+    db.vm.synced_folder "vagrant/", "/vagrant"
+    db.vm.provision "initialize-db-host-mysql", type:"shell", privileged:true, path:"vagrant/provision/provisioning-db-host-mysql.sh"
+# Hist_host_sync ->
   end
 
-  config.vm.define "clnt" do |clnt|
-    clnt.vm.box = "VProfirov/CentOS-Stream-08-customized"
-    clnt.vm.network "private_network", ip: "192.168.98.203"
-    clnt.vm.hostname = "clnt.dob.lab"
+  config.vm.define "centOS-client-143" do |client|
+    client.vm.provider "virtualbox" do |vb|
+      vb.memory = "1024"
+      vb.cpus = "1"
+      vb.name = "04.01.client-host-CentOS-143"
+    end
+
+    client.vm.box = "VProfirov/CentOS-Stream-08-customized"
+    client.vm.box_version = "1.4"
+
+    client.vm.hostname = "client-host-CentOS-143"
+
+    client.vm.network :forwarded_port, id:"ssh", guest:22, host:2143, auto_correct:true
+
+    client.vm.network :private_network, ip:"192.168.99.143"
+    client.vm.network :forwarded_port, id:"client_port_http", guest: 80, host:8143, auto_correct: true
+
+    client.vm.synced_folder "vagrant/","/vagrant"
+    client.vm.provision "initialize-client-host", type:"shell", privileged:true, path:"vagrant/provision/provisioning-client-host.sh"
   end
- 
 end
