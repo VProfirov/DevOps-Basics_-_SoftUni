@@ -1,0 +1,32 @@
+---
+- hosts: clnt
+  become: false
+  tasks:
+      # Teach's way
+    - name: Get system's Kernel version with registering a variable("kver") holding the ansible-output (of the shell command:"usr/bin/uname -r")
+      shell: /usr/bin/uname -r
+      register: kver
+# NOTE: shell execution (what ever it is) is always marked as CHANGED in the log output
+
+    - name: Debug Info (passing "kver" to "var" of the "debug" module). Effectively outputting the result of kver.
+      debug: var=kver
+# NOTE: this way the debug module outputs a lot of info about the execution process of the shell command (when start/end/duration... also fails;stderr...)
+
+      # single command way - just grabs the data and puts in a variable
+    - name: Get system's kernel using the "setup" module
+      setup: filter=ansible_kernel
+      register: using_setup
+      # NOTE: var using_setup holds: {"using_setup":{"ansible_facts": {"ansible_kernel-filter's name for the "Gathered facts" in the ansibleJSON.kernelField": "the kernel-version"}, "changed","failed" - info as well }"}
+
+# NOTE: This is module use with a filter over ansible_facts (filter for configed-host's kernel)
+
+    - name: Get system's kernel using the "setup" module
+      debug: var=using_setup # part of ansible_facts
+
+    - name: Just the data out of the ansible_facts for kernel of the config-ed host
+      debug: var=ansible_facts.kernel
+
+      # No TAKS's name leads to naming it as the module called
+    -
+      debug: var=ansible_facts.kernel
+...

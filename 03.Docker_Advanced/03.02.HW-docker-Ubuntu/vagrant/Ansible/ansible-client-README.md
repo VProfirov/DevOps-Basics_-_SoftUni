@@ -1,1 +1,0 @@
-the proverbial client pc

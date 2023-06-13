@@ -1,0 +1,59 @@
+---
+- hosts: webservers
+  become: true
+
+  tasks:
+    # RedHat (RHEL; CentOS; Fedora)
+  - name: Remove Apache Server on RHEL
+    dnf: name=httpd state=absent
+    when: ansible_os_family == "RedHat"
+
+  - name: Remove Apache configuration dir
+    shell: rm -fr /etc/httpd
+    when: ansible_os_family == "RedHat"
+
+  - name: Disable Apache over Firewall
+    firewalld: service=http state=disabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Disable 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=disabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: REMOVING the /var/www/html index.html "Hi Ansible"
+    shell: |
+      if [[ -e "/var/www" ]]; then
+        rm -fr /var/www/;
+      fi;
+      if [[ -e "/etc/httpd" ]]; then
+        rm -fr /etc/httpd;
+      fi;
+    when: ansible_os_family == "RedHat"
+
+    # OpenSUSE
+  - name: Remove Apache Server on OpenSUSE
+    zypper: name=apache2 state=absent
+    when: ansible_os_family == "Suse"
+
+  - name: Remove to Apache configuration dir
+    shell: rm -fr /etc/apache2
+    when: ansible_os_family == "Suse"
+
+  - name: Disable Apache over Firewall
+    firewalld: service=apache2 state=disabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: Remove 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=disabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: REMOVE the /srv/www/{htdocs and cgi_bin} and an index.html "Hi Ansible"
+    shell: |
+      if [[ -e "/srv/www" ]]; then
+        rm -fr /srv/www;
+      fi;
+      if [[ -e "/etc/apache2" ]]; then
+        rm -fr /etc/apache2;
+      fi;
+    when: ansible_os_family == "Suse"
+...

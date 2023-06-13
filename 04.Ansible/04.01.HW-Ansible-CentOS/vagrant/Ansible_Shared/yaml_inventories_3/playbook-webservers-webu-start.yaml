@@ -1,0 +1,90 @@
+---
+- name: Apache Deployment on the webservers
+  hosts: webservers
+  # remote_user: remote_userX
+  # remote_user: root # is as "become: true"
+  become: true
+
+  tasks:
+    # RedHat (RHEL; CentOS; Fedora)
+  - name: Install Apache Server on RHEL
+    dnf: name=httpd state=present
+    when: ansible_os_family|lower == "redhat"
+
+  - name: Add "Listen 8080" to Apache configuration
+    shell: |
+      if [[ -z $(grep -iE "^Listen 8080\$" /etc/httpd/conf/httpd.conf) ]] && [[ -n $(grep -iE "^Listen 80\$" /etc/httpd/conf/httpd.conf) ]]; then
+        sed -ir '/^Listen 80/a Listen 8080' /etc/httpd/conf/httpd.conf;
+      fi;
+    when: ansible_os_family == "RedHat"
+
+  - name: Adding Apache related dir "www"
+    shell: |
+      if [[ ! -e "/var/www" ]]; then
+        mkdir -p /var/www/{html,cgi-bin};
+      fi;
+    when: ansible_os_family == "RedHat"
+
+  - name: Start Apache httpd.service
+    service: name=httpd state=reloaded enabled=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Enable Apache over Firewall
+    firewalld: service=http state=enabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Enable 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=enabled permanent=true immediate=true
+    when: ansible_os_family == "RedHat"
+
+  - name: Adding an index.html "Hi Ansible"
+    copy: src=html/index.html dest=/var/www/html/ mode=0644
+    when: ansible_os_family == "RedHat"
+
+  - name: Applying template on top of existing the index.html
+    vars:
+      v_host_type: RedHat
+    template: src=roles/common/templates/index.j2 dest=/var/www/html/index.html mode=0644
+    when: ansible_os_family == "RedHat"
+
+    # OpenSUSE
+  - name: Install Apache Server on OpenSUSE
+    zypper: name=apache2 state=present
+    when: ansible_os_family|lower == "suse"
+
+  - name: Add "Listen 8080" to Apache configuration
+    shell: |
+      if [[ -z $(grep -iE "^Listen 8080\$" /etc/apache2/listen.conf) ]] && [[ -n $(grep -iE "^Listen 80\$" /etc/apache2/listen.conf) ]]; then
+        sed -ir '/^Listen 80$/a Listen 8080' /etc/apache2/listen.conf;
+      fi;
+    when: ansible_os_family == "Suse"
+
+  - name: Adding Apache related dir "www" and inner dirs
+    shell: |
+      if [[ ! -e "/srv/www" ]]; then
+        mkdir -p /srv/www/{htdocs,cgi-bin};
+      fi;
+    when: ansible_os_family == "Suse"
+
+  - name: Start Apache apache2.service
+    service: name=apache2 state=reloaded enabled=true
+    when: ansible_os_family == "Suse"
+
+  - name: Enable Apache over Firewall
+    firewalld: service=apache2 state=enabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: Enable 8080/tcp port over firewall
+    firewalld: port=8080/tcp state=enabled permanent=true immediate=true
+    when: ansible_os_family == "Suse"
+
+  - name: Adding an index.html "Hi Ansible"
+    copy: src=html/index.html dest=/srv/www/htdocs/ mode=0644
+    when: ansible_os_family == "Suse"
+
+  - name: Applying template on top of existing the index.html
+    vars:
+      v_host_type: Suse
+    template: src=roles/common/templates/index.j2 dest=/srv/www/htdocs/index.html mode=0644
+    when: ansible_os_family == "Suse"
+...

@@ -1,0 +1,14 @@
+---
+# Host level user definition (username property/key).
+username: user_host
+#
+# # # CONCLUSION :
+# IN ODER WORDS:
+  # this will be refered when the particular host is addressed, however
+  # if the group this host belong to is adressed then the group level
+  # property/key with of that same string.ref will be used. Ex:
+    # username:user_group(or what ever value)
+# The rule is 1st found used, but if NOT FOUND **use what it is found** and
+# buble-up to the owning/paren-group to look for what WAS NOT FOUND at this
+# addressed-level-of-the-inventory
+...

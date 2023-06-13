@@ -1,0 +1,5 @@
+2022-05-11 14:40:44,720 p=34912 u=vagrant n=ansible | clnt | UNREACHABLE! => {
+    "changed": false,
+    "msg": "Failed to connect to the host via ssh: vagrant@192.168.99.132: Permission denied (publickey,password,keyboard-interactive).",
+    "unreachable": true
+}

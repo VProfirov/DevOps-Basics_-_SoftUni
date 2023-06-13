@@ -1,0 +1,7 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+  - name: Copy new index.ngx_http_xslt_filter_module
+    copy: src=html/index.html dest=src/www/htmldocs/
+...

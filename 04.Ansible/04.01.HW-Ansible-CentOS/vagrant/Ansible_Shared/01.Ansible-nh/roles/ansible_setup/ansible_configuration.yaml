@@ -1,0 +1,26 @@
+---
+- name: "Ansible Default Config"
+  hosts: ans
+  become: true
+
+  tasks:
+    - name: "Creating ansible.cfg with default config"
+      shell: '
+        if [[ ! -e ansible.cfg]]; then
+          touch ansible.cfg;
+
+          chown vagrant: ansible.cfg
+
+          tee -a\ "
+            [defaults]
+            host_key_checking = False
+
+            inventory = inventory.yaml
+
+            retry_files_enabled = True
+            retry_files_save_path = .ansible-retry
+
+            log_path = ./ansible.log
+          "
+        '
+...

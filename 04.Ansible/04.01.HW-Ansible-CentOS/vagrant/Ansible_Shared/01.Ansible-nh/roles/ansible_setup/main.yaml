@@ -1,0 +1,7 @@
+---
+- name: "Installation: "
+  import_playbook: ansible_installation.yaml
+
+- name: "Configuraion: "
+  import_playbook: ansible_configuration.yaml
+...

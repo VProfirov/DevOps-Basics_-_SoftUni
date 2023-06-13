@@ -1,0 +1,16 @@
+---
+- hosts: web
+  become: true
+  tasks:
+    - name: REMOVE Apache HTTP server
+      zypper: name=apache2 state=absent
+
+    - name: REMOVE HTTP service connection through Firewall (apache2)
+      firewalld: service=apache2 state=disabled permanent=true immediate=true
+
+    - name: REMOVE port 8080 for Apache (default(80)-root-lvl is provided by adding the apache2 service to the firewall)
+      firewalld:  port=8080/tcp state=disabled permanent=true immediate=true
+    
+    - name: REMOVE Apache2 residual files
+      shell: rm -fr /etc/apache2
+...

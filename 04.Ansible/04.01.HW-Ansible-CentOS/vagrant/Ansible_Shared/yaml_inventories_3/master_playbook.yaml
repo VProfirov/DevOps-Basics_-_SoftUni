@@ -1,0 +1,6 @@
+---
+# - import_playbook: playbook-webservers-start.yaml
+# - import_playbook: playbook-webservers-close-and-clear.yaml
+- import_playbook: playbook-fullservers-start.yaml
+- import_playbook: playbook-fullservers-close-and-clear.yaml
+...

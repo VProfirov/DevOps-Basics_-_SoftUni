@@ -1,0 +1,21 @@
+---
+- name: "Ansible Installation on Staged Environment"
+  hosts: ans
+  become: true
+
+  tasks:
+    - name: "Ansible installation on RedHat(CentOS, RHEL, Fedora)"
+      dnf:
+        name: ansible
+        state: present
+      when:
+        ansible_os_family: RedHat
+
+    - name: "Ansible installation on Suse (OpenSUSE)"
+      zypper:
+        name: ansible
+        state: present
+      when:
+        ansible_os_family: Suse
+
+...

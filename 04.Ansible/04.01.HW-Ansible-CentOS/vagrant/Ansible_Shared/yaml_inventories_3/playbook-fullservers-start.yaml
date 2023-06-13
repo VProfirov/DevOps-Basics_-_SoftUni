@@ -1,0 +1,47 @@
+---
+- hosts: webservers
+  become: true
+  tasks:
+    - name: Install Apache HTTP server
+      zypper: name=apache2 state=present
+
+    - name: Allow HTTP service connection through Firewall (apache2)
+      firewalld: service=apache2 state=enabled permanent=true immediate=true
+
+    - name: Add "Listen 8080" to Apache configuration
+      shell: sed -ir '/^Listen 80/a Listen 8080' /etc/apache2/listen.conf
+      # NOTE: this will cause the apache2 service to block if there is 2nd config reload, without removing the 1st "Listen 8080", and the service is set to reload ==> Solution: create a if-then check!
+
+    - name: Add port 8080 for Apache (default(80)-root-lvl is provided by adding the apache2 service to the firewall)
+      firewalld:  port=8080/tcp state=enabled permanent=true immediate=true
+
+    - name: Start and Enable Apache HTTP server
+      service: name=apache2 state=reloaded enabled=true
+      # service: name=apache2 state=started enabled=true
+
+    - name: Adding an index.html "Hi Ansible"
+      copy: src=html/index.html dst=/var/www/html/index.html
+
+- hosts: databases
+  become: true
+  tasks:
+    - name: Install MariaDB server
+      zypper: name=mariadb state=present
+
+    - name: Enable MariaDB
+      service: name=mariadb state=started enabled=true
+
+- hosts: clnt
+  become: false
+  tasks:
+      # Teach's way
+    - name: Get the configed-host's system Kernel version
+      shell: /usr/bin/uname -r
+      register: kver
+
+    - name: Debug Info (passing "kver" to "var" of the "debug" module). Effectively outputting the result of kver.
+      debug: var=kver
+
+    - name: Just the data out of the ansible_facts for kernel of the config-ed host
+      debug: var=ansible_facts.kernel
+...

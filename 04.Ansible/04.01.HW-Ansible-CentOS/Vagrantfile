@@ -1,8 +1,12 @@
 # -*- mode:ruby -*-
 # vi: set ft=ruby:
 
+# Example for importing external ruby configs
+# load "vagrant-config/teachers-Vagrantfile.rb"
+# require_relative "vagrant-config/testing-Vagrantconfig-DRY.rb"
+
+
 Vagrant.configure("2") do |config|
-  load "vagrant-config/teachers-Vagrantfile.rb"
 
   config.vm.define "centOS-ansible-140" do |ans|
     ans.vm.provider "virtualbox" do |vb|
@@ -21,8 +25,11 @@ Vagrant.configure("2") do |config|
     # Virt-env network and port export
     ans.vm.network :private_network, ip: "192.168.99.140"
     ans.vm.network :forwarded_port, guest:8080, host:8140, auto_correct: true
-    # Virt-sync-depot
+    # Virt-synced-dir
     ans.vm.synced_folder "vagrant/", "/vagrant"
+    # Shared-synced-dir_outside-current-CentOS-project
+    ans.vm.synced_folder "vagrant/Ansible_Shared", "/vagrant/Ansible_Shared"
+
     # Basic provisioning (UNDONE - and all the rest)
     ans.vm.provision "initialize-ansible", type: "shell", privileged: true, path:"vagrant/provision/ansible-provision-CentOS.sh"
 
@@ -50,12 +57,15 @@ Vagrant.configure("2") do |config|
     web.vm.network :forwarded_port, id: "web_index_https", guest: 443, host:8043, auto_correct: true
 
     web.vm.synced_folder "vagrant/", "/vagrant"
+    # Shared-synced-dir_outside-current-CentOS-project
+    web.vm.synced_folder "vagrant/Ansible_Shared", "/vagrant/Ansible_Shared"
+
     # aoache2 on CentOS is httpd
     web.vm.provision "initialize-web-host-apache2", type:"shell", privileged: true, path: "vagrant/provision/provisioning-web-host-apache2.sh"
 
     # Hist_host_sync ->
   end
-  
+
   config.vm.define "centOS-db-142" do |db|
     db.vm.provider "virtualbox" do |vb|
       vb.memory = "1024"
@@ -74,6 +84,9 @@ Vagrant.configure("2") do |config|
     db.vm.network :forwarded_port, id: "db_port_mysql", guest:3306, host:3306
 
     db.vm.synced_folder "vagrant/", "/vagrant"
+    # Shared-synced-dir_outside-current-CentOS-project
+    db.vm.synced_folder "vagrant/Ansible_Shared", "/vagrant/Ansible_Shared"
+
     db.vm.provision "initialize-db-host-mysql", type:"shell", privileged:true, path:"vagrant/provision/provisioning-db-host-mysql.sh"
 # Hist_host_sync ->
   end
@@ -96,6 +109,9 @@ Vagrant.configure("2") do |config|
     client.vm.network :forwarded_port, id:"client_port_http", guest: 80, host:8143, auto_correct: true
 
     client.vm.synced_folder "vagrant/","/vagrant"
+    # Shared-synced-dir_outside-current-CentOS-project
+    client.vm.synced_folder "vagrant/Ansible_Shared", "/vagrant/Ansible_Shared"
+
     client.vm.provision "initialize-client-host", type:"shell", privileged:true, path:"vagrant/provision/provisioning-client-host.sh"
   end
 end
