@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
 
 	#config.vm.box_download_{,,...} checksums for the downloaded update-content
 
-	config.vm.define "docker-centOS-experiment" do |docker|
+	config.vm.define "docker-host-centOS" do |docker|
 		docker.vm.provider "virtualbox" do |vb|
 			vb.memory = "2048"
 			vb.cpus = "2"
@@ -19,10 +19,10 @@ Vagrant.configure("2") do |config|
 		# docker.vm.box = "VProfirov/CentOS-Stream-08-customized"
 		# docker.vm.box_version = "1.4"
 		## LOCAL REPO
-		docker.vm.box = "CentOS-Stream-08-customized-1.4.1"
-		docker.vm.box_version = "0"
+		docker.vm.box = "VProfirov/CentOS-Stream-08-customized"
+		docker.vm.box_version = "1.4"
 
-		docker.vm.hostname = "docker-host-experiment-CentOS"
+		docker.vm.hostname = "docker-host-CentOS"
 
 		## the idea is to override the default Vagrant port-substitution during re/init (vagrant up)
 		# current ports on the vm : host: 2201, guest:22

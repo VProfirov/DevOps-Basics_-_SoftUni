@@ -34,7 +34,7 @@ if [ ! -h /home/vagrant/.zsh_history ] && [ ! -h /home/vagrant/.bash_history ] &
 fi
 
 echo "** redirecting the HISTFILE through .zshrc: /vagrant/cli_history/.zsh_history (HOME->$HOME)"
-grep -E "HISTFILE=" $HOME/.zshrc || echo 'export HISTFILE="/vagrant/cli_history/.zsh_history"' || tee -a $HOME/.zshrc
+grep -E "HISTFILE=" $HOME/.zshrc | grep -iEv ".zsh_history" || echo 'export HISTFILE="/vagrant/cli_history/.zsh_history"' || tee -a $HOME/.zshrc
 # ls -lahtF /vagrant
 # ls -lahtF /vagrant/cli_history
 

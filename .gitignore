@@ -1,6 +1,8 @@
 
 *.box
 
+.zsh_history
+
 00.00.Artifacts
 03.03.HW-docker-OpenSUSE/vagrant/provision/lazydocker
 

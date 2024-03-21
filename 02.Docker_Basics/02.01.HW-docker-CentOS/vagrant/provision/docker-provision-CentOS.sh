@@ -26,9 +26,9 @@ echo " ** Installing docker packages"
 dnf install -y docker-ce docker-ce-cli
 
 
-echo " --> check: containerd.io is installed"
+echo " --> check: is containerd.io installed"
 if [ -z "$(rpm -qa | grep -iE "^containerd.io")" ]; then
-        echo " --> action: containerd.io install"
+        echo " --> action: install containerd.io"
         dnf install https://download.docker.com/linux/centos/7/x86_64/stable/Packages\
                         /containerd.io-1.4.9-3.1.el7.x86_64.rpm
 
@@ -64,7 +64,7 @@ firewall-cmd --zone docker --list-all
 
 echo " ** Adding the $USER (vagrant) to the docker Group"
 getent group docker;
-# To Work hace to add the $USER(vagrant) to sudoers.d in advance 
+# To Work hace to add the $USER(vagrant) to sudoers.d in advance
 ## usermod -aG docker $USER;
 usermod -aG docker vagrant;
 getent group docker;
